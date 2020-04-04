@@ -1,7 +1,7 @@
 ---
 toc: true
 layout: post
-description: Classification evaluation metrices, part-1
+description: Classification evaluation matrices, part-1
 categories: [markdown]
 title: ক্লাসিফিকেশন ইভ্যালুয়েশন মেট্রিসেস [পর্ব - ১]
 ---
