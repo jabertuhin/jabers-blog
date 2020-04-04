@@ -4,10 +4,13 @@ title: About Me
 permalink: /about/
 ---
 
-This is where you put the contents of your *About* page. Like all your pages, it's in [Markdown](https://guides.github.com/features/mastering-markdown/) format.
+I am currently working at [Infolytx](https://www.infolytx.com/) as a Junior Software Engineer. I completed my graduation from [BRAC University](https://www.bracu.ac.bd/) in Computer Science.
 
-This website is powered by **[fastpages](https://github.com/fastai/fastpages)** [^1].
+#### Who am I?
 
+Once a poet, now a deep learning practitioner with a software engineering mindset. Therefore, I am a philosopher with a little bit of logical reasoning.
+Currently focusing on deep diving into the things that I once said or believed I know.
 
+### Contact me
 
-[^1]:a blogging platform that natively supports Jupyter notebooks in addition to other formats.
+[jabertuhin@gmail.com](mailto:jabertuhin@gmail.com)
