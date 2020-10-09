@@ -4,7 +4,7 @@ title: About Me
 permalink: /about/
 ---
 
-I am currently working at [Infolytx](https://www.infolytx.com/) as a Junior Software Engineer. I completed my graduation from [BRAC University](https://www.bracu.ac.bd/) in Computer Science.
+I am currently working at [Infolytx](https://www.infolytx.com/) as a Software Engineer-I. I completed my graduation from [BRAC University](https://www.bracu.ac.bd/) in Computer Science.
 
 #### Who am I?
 
