@@ -1,9 +1,9 @@
 ---
-
 toc: true
 layout: post
 description: Understanding underfitting and overfitting in ML
-categories: [markdown]
+categories: [Machine Learning]
+comments: true
 title: ওভারফিটিং, আন্ডারফিটিং [মেশিন লার্নিং টুকিটাকি]
 ---
 
