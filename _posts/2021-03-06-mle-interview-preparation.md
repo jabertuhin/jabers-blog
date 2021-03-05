@@ -67,3 +67,10 @@ categories: [Interview Preparation, Machine Learning, Bangla]
 #### মেশিং লার্নিং সিস্টেম
 - [Stanford MLSys Seminars](https://www.youtube.com/channel/UCzz6ructab1U44QPI3HpZEQ)
 - [Full Stack Deep Learning](https://fullstackdeeplearning.com/)
+
+#### মেশিং লার্নিং কনসেপ্ট(Practical)
+- [Kaggle Courses](https://www.kaggle.com/learn/overview)
+
+#### ডাটা স্ট্রাকচার এন্ড এলগোরিদম
+- [Intro to Data Structures and Algorithms](https://www.udacity.com/course/data-structures-and-algorithms-in-python--ud513)
+- [শাফায়েতের ব্লগ প্রোগ্রামিং ও অ্যালগরিদম টিউটোরিয়াল](http://www.shafaetsplanet.com/planetcoding/)
