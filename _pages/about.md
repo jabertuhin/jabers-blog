@@ -13,4 +13,4 @@ Currently focusing on deep diving into the things that I once said or believed I
 
 ### Contact me
 
-[jabertuhin@gmail.com](mailto:jabertuhin@gmail.com)
+mir.mohammad.jaber at g.bracu.ac.bd
