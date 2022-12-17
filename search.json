@@ -49,10 +49,80 @@
     "text": "ব্র্যাকে ভর্তি হয়ে বেশ কিছুদিন(কয়েক মাস,এখনও কিছু সময়ের জন্য সত্য) ধরে প্রচন্ড রকমের মন খারাপ। কোন একদিন ফেসবুকে ব্র্যাকে ভার্সিটি রিলেটেড সব গ্রুপে জয়েনে রিকুয়েস্ট করি। সেভাবেই এই গ্রুপের সন্ধান পাওয়া।\nবিভিন্ন মানুষের লিখা পড়ার কারণে কন্টেস্ট সম্পর্কে ভাসা ভাসা আইডিয়া ছিল। কিন্তু ভার্সিটিতে ভর্তি হয়েই programming language সহ বিভিন্ন টার্মের সাথে প্রথম পরিচয়। spring15 এর সেমিস্টার ব্রেকের কিছু আগে ঢাবির এক বন্ধুর(নাবিল) মাধ্যমে uri online judge এর খবর পাই। সলভ করতে গিয়ে প্রথম প্রবলেম সাবমিট করেই WA (uri 1001 may be)। এই গ্রুপে (BRACU Programming Contest Enthusiasts)পোস্ট করলাম, আপু উত্তর দিলো “Please , enter a number” প্রিন্ট করার কোন দরকার নেই । কেবল শুরু ……\nরকিব স্যার থাকাকালীন ক্লাস শুরু করা সম্ভব হয় নি। পরের সেমিস্টারে টার্কে চলে গেলাম। টার্ক থেকে ফিরে জয়েন করবো করবো করে ভয়ে আর করা হলো না। টার্কে কাওনাইন স্যার , রুবায়েত স্যার ,সামিউল স্যার প্রতি শনিবার যেতো। তখন uri এর প্রবলেম সলভ করতাম, সাহায্য নিতাম।\nপরের সেমিস্টারেও টুকটাক সলভ করতাম/চেষ্টা করতাম, ডিসেম্বরে ফাইনালি জয়েন করলাম। এর আগে একটা কথা বলি একদিন রাতে ঘুমানোর আগে uva এর 3n+1 বিখ্যাত প্রবলেম (এই সাইটের নামও ঐ বন্ধুর কাছ থেকে পাওয়া। ও তখন এটায় সলভ করে) বহু চিন্তা করে লজিক ঠিক করি। পরের দিন ভোরে উঠে কোড করতে বসি, উত্তর মিলাই। টানা ৭/৮ বারের মতো সাবমিট করে প্রতিবারই WA(Wrong Answer) খাই। উত্তর ঠিকই প্রিন্ট করতেছে কিন্তু wa কেন?\nআবার ক্লাসে ফিরে আসি। প্রথমদিন ক্লাসে ২/৩ টা প্রবলেম সলভ করার জন্য বলা হইছিল আমি ১ টা মনে হয় সলভ করতে পারছিলাম। লজ্জায় তাড়াতাড়ি বের হতে চাচ্ছিলাম। আর ঐদিনই জানি আমার ঐ প্রবলেম wa খাওয়ার কারণ ছিল আমি end of file পর্যন্ত ইনপুট নেই নাই। কারণ ঐ জিনিস সম্পর্কে আমার কোন আইডিয়া ছিল না।\nপ্রথম কন্টেস্ট করতে বসে ২/৩ টা সলভ করতে পারছিলাম ১০ টার মধ্যে। আর প্রথম যারা ছিল তারা ২/৩ ঘন্টার মধ্যেই সব সলভ করে ফেলছে। ঐ রাতেই তাদের জন্য আরেকটা কন্টেস্ট সেট করে দেয়া হতো। তারা যেন প্র্যাকটিস চালু রাখতে পারে। আমি অসহায়ের মতো ঐ কন্টেস্টে গিয়ে আরো ২/৩ টা সলভ করে আসতাম।\nআমার uva তে তখন সলিউশন ৪/৫ টা আর প্রথম কয়েকজনের ১৪৫+। আমি সি++ স্ট্রিং নিয়ে অনেক ভুগছি , পরে শিখছি। আমি ক্লাসে সব জিনিস ধরতে পারতাম না, এইটা আজ অবধি সত্য কিন্তু পরে বাসায় এসে ঘেটে দেখে শিখে নিতাম/চেষ্টা করতাম, এখনো তাই করি। একাডেমিক কোর্সের ক্ষেত্রেও তা সত্য।\nআমার ৩/৪ নাম্বার ক্লাসেই রাজকিন ভাইয়া BFS, DFS, Trie, Heap শিখাইছিল। কন্সেপ্ট ধরতে পারছি কিন্তু কোডের কিছুই বুঝি নাই । কিন্তু আমি ছাড়ি নাই।\nআমি হুমায়ুন আহমেদের বই পড়া মানুষ তা ছাড়া বহু মানুষের কথা শুনছি এবং লিখা পড়ছি। “কচ্ছপের মতো কামড় দিয়ে” ধরে থাকতে পারি। হেরে যাওয়ার আগে হারতে রাজী না কিংবা বিলীন হতে রাজী না। আমি স্লো লার্নার কিন্তু লার্নার।\nআমি এই শিখার এবং পার্টিসিপেট করার জার্নিটাকে ইঞ্জয় করছি। আমার বলার মতো কিংবা “সিভি” তে এড করার মতো কোন র‍্যাংক নাই, হবে নাকি জানিও না।\nএতোগুলা কথা বলার কারণ ৪ দিনের workshop(BRACU Competitive Programming Workshop, April-May 2017) এ প্রতিদিন মানুষ কমছে যেটা এক্সপেক্টেড ছিল। চেষ্টা না করেই পারবো না বলাটা ঠিক মানানসই না। কেউ কোনকিছুতে ইন্টারেস্টেড ফিল না করলে ভিন্ন কথা। কিন্তু ইন্টারেস্টেড হয়েও নিজের উপর ভরসা না পাওয়াটা সমস্যা। ১/২ মাস চেষ্টা করো , এরপর যদি মনে হয় যে সম্ভব না তাহলে QUIT করো (Wasif ভাইয়া এই কথাটা বলছিল)। কচ্ছপের মতো শুধু পরে থাকাতে আবার সার্থকতা নেই। একটু একটু করে আগাতেও হবে সাথে।\nHappy Coding :)\n[ লিখাটা যতোটা না অন্যের জন্য তার চেয়ে বেশি নিজের জন্য ]"
   },
   {
+    "objectID": "posts/vscode-dev-container/index.html",
+    "href": "posts/vscode-dev-container/index.html",
+    "title": "Developing inside a Container with VSCode",
+    "section": "",
+    "text": "In this blog post, we will try to add a few files in our project folder, to start developing an existing project on the docker container with VSCode. We will be working on one of my python pet project.\nIf you are in a hurry and just want to go through the code, here is the github repo. Go through .devcontainer folder.\nLet’s start….\nPre-requisites: VSCode, Docker."
+  },
+  {
+    "objectID": "posts/vscode-dev-container/index.html#architecture",
+    "href": "posts/vscode-dev-container/index.html#architecture",
+    "title": "Developing inside a Container with VSCode",
+    "section": "Architecture",
+    "text": "Architecture\nThe architecture of VS Code working with docker container -\n\nWe won’t go into the details here. If you are interested, please read the documentation."
+  },
+  {
+    "objectID": "posts/vscode-dev-container/index.html#installing-extension",
+    "href": "posts/vscode-dev-container/index.html#installing-extension",
+    "title": "Developing inside a Container with VSCode",
+    "section": "Installing Extension",
+    "text": "Installing Extension\nInstall Remote - Containers from extensions marketplace."
+  },
+  {
+    "objectID": "posts/vscode-dev-container/index.html#create-.devcontainer-folder",
+    "href": "posts/vscode-dev-container/index.html#create-.devcontainer-folder",
+    "title": "Developing inside a Container with VSCode",
+    "section": "Create .devcontainer Folder",
+    "text": "Create .devcontainer Folder\nIn our project, we need to create a .devcontainer folder. Here, we will keep our configuration files, which will be used to create our container for development purposes. This folder and its’ files will tell our recently installed extension to create a docker container and use it for development."
+  },
+  {
+    "objectID": "posts/vscode-dev-container/index.html#create-dockerfile",
+    "href": "posts/vscode-dev-container/index.html#create-dockerfile",
+    "title": "Developing inside a Container with VSCode",
+    "section": "Create Dockerfile",
+    "text": "Create Dockerfile\nI have modified the Dockerfile a little bit, according to my need. Except that, this file was copied from vscode-remote-try-python. This definition will be used to create our development container.\nARG VARIANT=3.8-bullseye\nFROM mcr.microsoft.com/vscode/devcontainers/python:0-${VARIANT}\n\n# [Choice] Node.js version: none, lts/*, 16, 14, 12, 10\nARG NODE_VERSION=\"none\"\nRUN if [ \"${NODE_VERSION}\" != \"none\" ]; then su vscode -c \"umask 0002 && . /usr/local/share/nvm/nvm.sh && nvm install ${NODE_VERSION} 2>&1\"; fi\n\n# [Optional] If your pip requirements rarely change, uncomment this section to add them to the image.\nCOPY requirements.txt /tmp/pip-tmp/\nCOPY requirements.dev.txt /tmp/pip-tmp/\nRUN pip3 --disable-pip-version-check --no-cache-dir install -r /tmp/pip-tmp/requirements.dev.txt \\\n   && rm -rf /tmp/pip-tmp"
+  },
+  {
+    "objectID": "posts/vscode-dev-container/index.html#create-devcontainer.json",
+    "href": "posts/vscode-dev-container/index.html#create-devcontainer.json",
+    "title": "Developing inside a Container with VSCode",
+    "section": "Create devcontainer.json",
+    "text": "Create devcontainer.json\nNow, we have our dockerfile to create a container from it. But we might want to pass some build/runtime arguments for our need, we can configure those in this file. We can also add the necessary vscode extension ids that will be needed for our development. And VSCode will take care of all of our configured needs.\nThere is one thing that I want to add here. I have a locally running PostgreSQL database. I was struggling to connect my application(which is running inside a container) with the local database. Special thanks to Sadman Amin, for suggesting me to use --network=host as an argument, and this resolved the issue.\n{\n    \"name\": \"Python 3\",\n    \"build\": {\n        \"dockerfile\": \"Dockerfile\",\n        \"context\": \"..\",\n        \"args\": {\n            \"VARIANT\": \"3.8-buster\",\n            \"NODE_VERSION\": \"lts/*\",\n        }\n    },\n    \"runArgs\": [\"--network=host\"],\n\n    // Set *default* container specific settings.json values on container create.\n    \"settings\": {\n        \"terminal.integrated.profiles.linux\": {\n            \"bash\": {\n                \"path\": \"/bin/bash\"\n            }\n        },\n        \"python.defaultInterpreterPath\": \"/usr/local/bin/python\",\n        \"python.languageServer\": \"Default\",\n        \"python.linting.enabled\": true,\n        \"python.linting.pylintEnabled\": true,\n        \"python.formatting.autopep8Path\": \"/usr/local/py-utils/bin/autopep8\",\n        \"python.formatting.blackPath\": \"/usr/local/py-utils/bin/black\",\n        \"python.formatting.yapfPath\": \"/usr/local/py-utils/bin/yapf\",\n        \"python.linting.banditPath\": \"/usr/local/py-utils/bin/bandit\",\n        \"python.linting.flake8Path\": \"/usr/local/py-utils/bin/flake8\",\n        \"python.linting.mypyPath\": \"/usr/local/py-utils/bin/mypy\",\n        \"python.linting.pycodestylePath\": \"/usr/local/py-utils/bin/pycodestyle\",\n        \"python.linting.pydocstylePath\": \"/usr/local/py-utils/bin/pydocstyle\",\n        \"python.linting.pylintPath\": \"/usr/local/py-utils/bin/pylint\"\n    },\n\n    // Add the IDs of extensions you want installed when the container is created.\n    \"extensions\": [\n        \"ms-python.python\",\n        \"ms-python.vscode-pylance\"\n    ],\n\n    // Use 'forwardPorts' to make a list of ports inside the container available locally.\n    \"forwardPorts\": [8080],\n\n    // Use 'portsAttributes' to set default properties for specific forwarded ports. More info: https://code.visualstudio.com/docs/remote/devcontainerjson-reference.\n    \"portsAttributes\": {\n        \"8080\": {\n            \"label\": \"DVD Rental\",\n            \"onAutoForward\": \"notify\"\n        }\n    },\n\n    // Comment out to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.\n    \"remoteUser\": \"vscode\"\n}\nThere are other available properties of this JSON file that we can add, for more info."
+  },
+  {
+    "objectID": "posts/vscode-dev-container/index.html#preparing-container",
+    "href": "posts/vscode-dev-container/index.html#preparing-container",
+    "title": "Developing inside a Container with VSCode",
+    "section": "Preparing Container",
+    "text": "Preparing Container\nWe are done with our preparation, now we can tell VSCode to do its magic:\n\nPress F1 and select the Remote-Containers: Open Folder in Container… command.\nSelecting the project folder will trigger the container to build and start."
+  },
+  {
+    "objectID": "posts/vscode-dev-container/index.html#git-question",
+    "href": "posts/vscode-dev-container/index.html#git-question",
+    "title": "Developing inside a Container with VSCode",
+    "section": "Git Question",
+    "text": "Git Question\nIn the beginning, I wasn’t sure about the git configurations. How one might commit/push from a container. Then I found my answer here Working with Git?."
+  },
+  {
+    "objectID": "posts/vscode-dev-container/index.html#conclusion",
+    "href": "posts/vscode-dev-container/index.html#conclusion",
+    "title": "Developing inside a Container with VSCode",
+    "section": "Conclusion",
+    "text": "Conclusion\nThe experience was quite good for me, and I enjoyed working on this. In my opinion, this will help team members to not worry about setting up the development environment on their workstation. In a project, different team members use different OS on their workstations. Sometimes it becomes difficult to work with identical system configurations. This container based development might minimize such difficulties.\nFinally, to get started with, I will suggest to clone and run vscode-remote-try-python."
+  },
+  {
+    "objectID": "posts/vscode-dev-container/index.html#reference",
+    "href": "posts/vscode-dev-container/index.html#reference",
+    "title": "Developing inside a Container with VSCode",
+    "section": "Reference",
+    "text": "Reference\n\nUsing Visual Studio Code from a docker image locally or remotely via VS Online\nVS Code Remote / GitHub Codespaces Container Definitions"
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "jabers-blog-quarto",
     "section": "",
-    "text": "Multi-stage Docker Build for Python Application\n\n\n\n\n\n\n\nPython\n\n\nPoetry\n\n\nDocker\n\n\nEnglish\n\n\n\n\nMulti-stage docker build for python application\n\n\n\n\n\n\nJul 16, 2022\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nকম্পিটিটিভ প্রোগ্রামিং -এ আমার পদার্পণ\n\n\n\n\n\n\n\nCompetitive Programming\n\n\nMy Story\n\n\n\n\nHow I started Competitive Programming\n\n\n\n\n\n\nMay 1, 2017\n\n\nMir Mohammad Jaber\n\n\n\n\n\n\nNo matching items"
+    "text": "Multi-stage Docker Build for Python Application\n\n\n\n\n\n\n\nPython\n\n\nPoetry\n\n\nDocker\n\n\nEnglish\n\n\n\n\nMulti-stage docker build for python application\n\n\n\n\n\n\nJul 16, 2022\n\n\n\n\n\n\n  \n\n\n\n\nDeveloping inside a Container with VSCode\n\n\n\n\n\n\n\nPython\n\n\nVSCode\n\n\nDocker\n\n\nEnglish\n\n\n\n\nInstead of working on virtual environments, we can now use a docker container to work on our codes.\n\n\n\n\n\n\nFeb 1, 2022\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nকম্পিটিটিভ প্রোগ্রামিং -এ আমার পদার্পণ\n\n\n\n\n\n\n\nCompetitive Programming\n\n\nMy Story\n\n\n\n\nHow I started Competitive Programming\n\n\n\n\n\n\nMay 1, 2017\n\n\nMir Mohammad Jaber\n\n\n\n\n\n\nNo matching items"
   }
 ]

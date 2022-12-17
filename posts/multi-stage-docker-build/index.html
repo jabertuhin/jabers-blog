@@ -251,7 +251,7 @@ background: #F1F1F1;
 <section id="working-with-plain-dockerfile" class="level2">
 <h2 class="anchored" data-anchor-id="working-with-plain-dockerfile">Working with Plain Dockerfile</h2>
 <p>First, starting with a plain dockerfile, which we would normally write for deployment.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource docker number-lines"><code class="sourceCode"><span id="cb2-1"><a href="#cb2-1"></a>FROM python:3.10.4-slim-buster</span>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource docker number-lines code-with-copy"><code class="sourceCode"><span id="cb2-1"><a href="#cb2-1"></a>FROM python:3.10.4-slim-buster</span>
 <span id="cb2-2"><a href="#cb2-2"></a></span>
 <span id="cb2-3"><a href="#cb2-3"></a>ARG POETRY_VERSION="1.1.13" \</span>
 <span id="cb2-4"><a href="#cb2-4"></a>    WORK_APP_DIR="/app" \</span>
@@ -286,7 +286,7 @@ background: #F1F1F1;
 <span id="cb2-33"><a href="#cb2-33"></a></span>
 <span id="cb2-34"><a href="#cb2-34"></a>EXPOSE $APP_PORT</span>
 <span id="cb2-35"><a href="#cb2-35"></a></span>
-<span id="cb2-36"><a href="#cb2-36"></a>CMD [ "make", "server" ]</span></code></pre></div>
+<span id="cb2-36"><a href="#cb2-36"></a>CMD [ "make", "server" ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Even, this format of dockerfile is new for me. Using different python flags, pip flags and poetry configuration through environment variables. As I am maintaining package dependencies through poetry, I am installing it first and exporting the dependencies as <code>requirements.txt</code> for installation. I could use poetry for installation as well, but as I will be working inside an isolated environment I won’t need another virtual environment which is used by poetry.</p>
 <p><code>--no-cache-dir</code> for pip installation can also help to reduce image size, as it will avoid caching files for the future which is not necessary for docker image building.</p>
 <p>This version of Dockerfile generates an image of size <strong>581 mb</strong>.</p>
@@ -294,7 +294,7 @@ background: #F1F1F1;
 <section id="working-with-docker-multi-stage-build" class="level2">
 <h2 class="anchored" data-anchor-id="working-with-docker-multi-stage-build">Working with Docker Multi-Stage Build</h2>
 <p>Now, let’s use multi-stage build to optimize the docker image.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource docker number-lines"><code class="sourceCode"><span id="cb3-1"><a href="#cb3-1"></a># Image for package building</span>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource docker number-lines code-with-copy"><code class="sourceCode"><span id="cb3-1"><a href="#cb3-1"></a># Image for package building</span>
 <span id="cb3-2"><a href="#cb3-2"></a>FROM python:3.10.4-slim-buster AS builder</span>
 <span id="cb3-3"><a href="#cb3-3"></a></span>
 <span id="cb3-4"><a href="#cb3-4"></a>ARG POETRY_VERSION="1.1.13" \</span>
@@ -349,7 +349,7 @@ background: #F1F1F1;
 <span id="cb3-53"><a href="#cb3-53"></a></span>
 <span id="cb3-54"><a href="#cb3-54"></a>EXPOSE $APP_PORT</span>
 <span id="cb3-55"><a href="#cb3-55"></a></span>
-<span id="cb3-56"><a href="#cb3-56"></a>CMD [ "make", "server" ]</span></code></pre></div>
+<span id="cb3-56"><a href="#cb3-56"></a>CMD [ "make", "server" ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>This dockerfile will yeild a docker image of size <strong>391 mb</strong>. As we got rid of the unnecessary files in final stage, it results a smaller image size. In the initial stage we download and build the wheels of our python packages. And this wheels are saved under a directory and can be used in the successive stages. Some files are necessary for building/compiling, but not for runtime. Getting rid of such files can save some space. We just imported the buit wheels in our final stage. We also didn’t use <code>curl</code>, <code>poetry</code> in our final stage as we won’t be needing those anymore.</p>
 </section>
 <section id="conclusion" class="level2">
@@ -397,6 +397,44 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
   function tippyHover(el, contentFn) {
     const config = {
       allowHTML: true,

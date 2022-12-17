@@ -3,6 +3,7 @@
     "listing": "/index.html",
     "items": [
       "/posts/multi-stage-docker-build/index.html",
+      "/posts/vscode-dev-container/index.html",
       "/posts/my-cp-journey/index.html"
     ]
   }
