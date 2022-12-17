@@ -2,7 +2,7 @@
 title: কম্পিটিটিভ প্রোগ্রামিং -এ আমার পদার্পণ
 author: "Mir Mohammad Jaber"
 description: How I started Competitive Programming
-date: "2022-12-13"
+date: "2017-05-01"
 categories: [Competitive Programming, My Story]
 title-block-banner: "#F1F1F1"
 ---
