@@ -11,7 +11,7 @@ format:
     code-line-numbers: true
     code-block-background: true
     highlight-style: ayu
-    code-copy: false
+    code-copy: true
 ---
 Recently, I have started learning about Docker multi-stage build which can help to reduce docker image size. I have seen its use in multiple GitHub projects and blog posts. So, I tried to understand it and create a version of my own to use later in my projects.
 
