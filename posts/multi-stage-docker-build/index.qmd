@@ -1,6 +1,7 @@
 ---
 title: Multi-stage Docker Build for Python Application
 description: Multi-stage docker build for python application
+date: "2022-07-16"
 toc: True
 categories: [Python, Poetry, Docker, English]
 image: multi-stage-build-image-dark.png
