@@ -2,14 +2,18 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://github.com/jabertuhin/jabers-blog-quarto/about.html</loc>
-    <lastmod>2022-12-17T06:33:38.701Z</lastmod>
+    <lastmod>2022-12-17T06:52:45.130Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/jabertuhin/jabers-blog-quarto/posts/welcome/index.html</loc>
-    <lastmod>2022-12-17T06:33:39.401Z</lastmod>
+    <lastmod>2022-12-17T06:52:45.794Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/jabertuhin/jabers-blog-quarto/posts/cp-journey/index.html</loc>
+    <lastmod>2022-12-17T06:52:46.126Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/jabertuhin/jabers-blog-quarto/index.html</loc>
-    <lastmod>2022-12-17T06:33:39.733Z</lastmod>
+    <lastmod>2022-12-17T06:52:46.442Z</lastmod>
   </url>
 </urlset>
