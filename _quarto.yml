@@ -12,7 +12,7 @@ website:
         href: https://twitter.com/jabertuhin
 format:
   html:
-    theme: morph
+    theme: sketchy
     css: styles.css
     smooth-scroll: true
 
