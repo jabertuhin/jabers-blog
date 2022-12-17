@@ -7,15 +7,43 @@
     "text": "About this blog"
   },
   {
-    "objectID": "posts/welcome/index.html",
-    "href": "posts/welcome/index.html",
-    "title": "Welcome To My Blog",
+    "objectID": "posts/multi-stage-docker-build/index.html",
+    "href": "posts/multi-stage-docker-build/index.html",
+    "title": "Multi-stage Docker Build for Python Application",
     "section": "",
-    "text": "This is the first post in a Quarto blog. Welcome!\n\nSince this post doesn’t specify an explicit image, the first image in the post will be used in the listing page of posts."
+    "text": "Recently, I have started learning about Docker multi-stage build which can help to reduce docker image size. I have seen its use in multiple GitHub projects and blog posts. So, I tried to understand it and create a version of my own to use later in my projects.\nAnother thing, I have started using poetry, a python packaging and dependency management tool for my python projects. Before using poetry, I was maintaining requirements.txt files for dependency management.\nIn this blog post, I will be presenting an approach for reducing image size with Docker multi-stage build while using poetry.\nHigh-Level Project structure: This is a FastAPI-based application."
   },
   {
-    "objectID": "posts/cp-journey/index.html",
-    "href": "posts/cp-journey/index.html",
+    "objectID": "posts/multi-stage-docker-build/index.html#working-with-plain-dockerfile",
+    "href": "posts/multi-stage-docker-build/index.html#working-with-plain-dockerfile",
+    "title": "Multi-stage Docker Build for Python Application",
+    "section": "Working with Plain Dockerfile",
+    "text": "Working with Plain Dockerfile\nFirst, starting with a plain dockerfile, which we would normally write for deployment.\nFROM python:3.10.4-slim-buster\n\nARG POETRY_VERSION=\"1.1.13\" \\\n    WORK_APP_DIR=\"/app\" \\\n    APP_PORT=8080 \n\nENV PIP_DISABLE_PIP_VERSION_CHECK=on \\\n    POETRY_NO_INTERACTION=1 \\\n    POETRY_HOME=\"/opt/poetry\" \\\n    POETRY_VERSION=$POETRY_VERSION \\\n    PYTHONDONTWRITEBYTECODE=1 \\\n    PYTHONUNBUFFERED=1    \n\n# for poetry command to work\nENV PATH=\"$POETRY_HOME/bin:$PATH\"\n\nRUN apt-get update \\\n    && apt-get install --no-install-recommends -y curl build-essential \\\n    && rm -rf /var/lib/apt/lists/*\n\n# installing poetry\nRUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -\n\nWORKDIR $WORK_APP_DIR\n\nCOPY pyproject.toml poetry.lock ./\n\n# installing python packages\nRUN poetry export -f requirements.txt --without-hashes --output requirements.txt \\\n    && pip install --no-cache-dir -r requirements.txt\n\nCOPY . ./\n\nEXPOSE $APP_PORT\n\nCMD [ \"make\", \"server\" ]\nEven, this format of dockerfile is new for me. Using different python flags, pip flags and poetry configuration through environment variables. As I am maintaining package dependencies through poetry, I am installing it first and exporting the dependencies as requirements.txt for installation. I could use poetry for installation as well, but as I will be working inside an isolated environment I won’t need another virtual environment which is used by poetry.\n--no-cache-dir for pip installation can also help to reduce image size, as it will avoid caching files for the future which is not necessary for docker image building.\nThis version of Dockerfile generates an image of size 581 mb."
+  },
+  {
+    "objectID": "posts/multi-stage-docker-build/index.html#working-with-docker-multi-stage-build",
+    "href": "posts/multi-stage-docker-build/index.html#working-with-docker-multi-stage-build",
+    "title": "Multi-stage Docker Build for Python Application",
+    "section": "Working with Docker Multi-Stage Build",
+    "text": "Working with Docker Multi-Stage Build\nNow, let’s use multi-stage build to optimize the docker image.\n# Image for package building\nFROM python:3.10.4-slim-buster AS builder\n\nARG POETRY_VERSION=\"1.1.13\" \\\n    WORK_APP_DIR=\"/app\"\n\nENV PIP_DISABLE_PIP_VERSION_CHECK=on \\\n    POETRY_NO_INTERACTION=1 \\\n    POETRY_HOME=\"/opt/poetry\" \\\n    POETRY_VERSION=$POETRY_VERSION\n\n# for poetry command to work\nENV PATH=\"$POETRY_HOME/bin:$PATH\"\n\nRUN apt-get update \\\n    && apt-get install --no-install-recommends -y curl \\\n    && rm -rf /var/lib/apt/lists/*\n\n# installing poetry\nRUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -\n\nWORKDIR $WORK_APP_DIR\n\nCOPY pyproject.toml poetry.lock ./\n\n# creating wheel for python packages\nRUN poetry export -f requirements.txt --without-hashes --output requirements.txt \\\n    && pip wheel --no-cache-dir --wheel-dir $WORK_APP_DIR/wheels -r requirements.txt\n\n\n# Image for deployment\nFROM python:3.10.4-slim-buster\n\nARG APP_PORT=8080 \\\n    WORK_APP_DIR=\"/app\"\n\nENV PYTHONDONTWRITEBYTECODE=1 \\\n    PYTHONUNBUFFERED=1 \\\n    PIP_DISABLE_PIP_VERSION_CHECK=on\n\nRUN apt-get update \\\n    && apt-get install --no-install-recommends -y build-essential \\\n    && rm -rf /var/lib/apt/lists/*\n\nWORKDIR $WORK_APP_DIR\n\nCOPY --from=builder $WORK_APP_DIR/wheels /wheels\n\n# installing python packages\nRUN pip install --no-cache-dir  /wheels/*\n\nCOPY . ./\n\nEXPOSE $APP_PORT\n\nCMD [ \"make\", \"server\" ]\nThis dockerfile will yeild a docker image of size 391 mb. As we got rid of the unnecessary files in final stage, it results a smaller image size. In the initial stage we download and build the wheels of our python packages. And this wheels are saved under a directory and can be used in the successive stages. Some files are necessary for building/compiling, but not for runtime. Getting rid of such files can save some space. We just imported the buit wheels in our final stage. We also didn’t use curl, poetry in our final stage as we won’t be needing those anymore."
+  },
+  {
+    "objectID": "posts/multi-stage-docker-build/index.html#conclusion",
+    "href": "posts/multi-stage-docker-build/index.html#conclusion",
+    "title": "Multi-stage Docker Build for Python Application",
+    "section": "Conclusion",
+    "text": "Conclusion\nUsing slimmer base image can also help to reduce docker image size for python applications, but as I mostly work ML project which has many dependencies, python slim-buster image helps a bit to avoid manul installation of some packages. This is not the most optimized dockerfile out there, this will work and can be modified for better performance. I will try to update this as I learn something new."
+  },
+  {
+    "objectID": "posts/multi-stage-docker-build/index.html#references",
+    "href": "posts/multi-stage-docker-build/index.html#references",
+    "title": "Multi-stage Docker Build for Python Application",
+    "section": "References",
+    "text": "References\n\nUse multi-stage builds\nDocument docker poetry best practices #1879\npython-poetry-docker-example\nPython Poetry for Building Docker Images\nPython and Poetry on Docker"
+  },
+  {
+    "objectID": "posts/my-cp-journey/index.html",
+    "href": "posts/my-cp-journey/index.html",
     "title": "কম্পিটিটিভ প্রোগ্রামিং -এ আমার পদার্পণ",
     "section": "",
     "text": "ব্র্যাকে ভর্তি হয়ে বেশ কিছুদিন(কয়েক মাস,এখনও কিছু সময়ের জন্য সত্য) ধরে প্রচন্ড রকমের মন খারাপ। কোন একদিন ফেসবুকে ব্র্যাকে ভার্সিটি রিলেটেড সব গ্রুপে জয়েনে রিকুয়েস্ট করি। সেভাবেই এই গ্রুপের সন্ধান পাওয়া।\nবিভিন্ন মানুষের লিখা পড়ার কারণে কন্টেস্ট সম্পর্কে ভাসা ভাসা আইডিয়া ছিল। কিন্তু ভার্সিটিতে ভর্তি হয়েই programming language সহ বিভিন্ন টার্মের সাথে প্রথম পরিচয়। spring15 এর সেমিস্টার ব্রেকের কিছু আগে ঢাবির এক বন্ধুর(নাবিল) মাধ্যমে uri online judge এর খবর পাই। সলভ করতে গিয়ে প্রথম প্রবলেম সাবমিট করেই WA (uri 1001 may be)। এই গ্রুপে (BRACU Programming Contest Enthusiasts)পোস্ট করলাম, আপু উত্তর দিলো “Please , enter a number” প্রিন্ট করার কোন দরকার নেই । কেবল শুরু ……\nরকিব স্যার থাকাকালীন ক্লাস শুরু করা সম্ভব হয় নি। পরের সেমিস্টারে টার্কে চলে গেলাম। টার্ক থেকে ফিরে জয়েন করবো করবো করে ভয়ে আর করা হলো না। টার্কে কাওনাইন স্যার , রুবায়েত স্যার ,সামিউল স্যার প্রতি শনিবার যেতো। তখন uri এর প্রবলেম সলভ করতাম, সাহায্য নিতাম।\nপরের সেমিস্টারেও টুকটাক সলভ করতাম/চেষ্টা করতাম, ডিসেম্বরে ফাইনালি জয়েন করলাম। এর আগে একটা কথা বলি একদিন রাতে ঘুমানোর আগে uva এর 3n+1 বিখ্যাত প্রবলেম (এই সাইটের নামও ঐ বন্ধুর কাছ থেকে পাওয়া। ও তখন এটায় সলভ করে) বহু চিন্তা করে লজিক ঠিক করি। পরের দিন ভোরে উঠে কোড করতে বসি, উত্তর মিলাই। টানা ৭/৮ বারের মতো সাবমিট করে প্রতিবারই WA(Wrong Answer) খাই। উত্তর ঠিকই প্রিন্ট করতেছে কিন্তু wa কেন?\nআবার ক্লাসে ফিরে আসি। প্রথমদিন ক্লাসে ২/৩ টা প্রবলেম সলভ করার জন্য বলা হইছিল আমি ১ টা মনে হয় সলভ করতে পারছিলাম। লজ্জায় তাড়াতাড়ি বের হতে চাচ্ছিলাম। আর ঐদিনই জানি আমার ঐ প্রবলেম wa খাওয়ার কারণ ছিল আমি end of file পর্যন্ত ইনপুট নেই নাই। কারণ ঐ জিনিস সম্পর্কে আমার কোন আইডিয়া ছিল না।\nপ্রথম কন্টেস্ট করতে বসে ২/৩ টা সলভ করতে পারছিলাম ১০ টার মধ্যে। আর প্রথম যারা ছিল তারা ২/৩ ঘন্টার মধ্যেই সব সলভ করে ফেলছে। ঐ রাতেই তাদের জন্য আরেকটা কন্টেস্ট সেট করে দেয়া হতো। তারা যেন প্র্যাকটিস চালু রাখতে পারে। আমি অসহায়ের মতো ঐ কন্টেস্টে গিয়ে আরো ২/৩ টা সলভ করে আসতাম।\nআমার uva তে তখন সলিউশন ৪/৫ টা আর প্রথম কয়েকজনের ১৪৫+। আমি সি++ স্ট্রিং নিয়ে অনেক ভুগছি , পরে শিখছি। আমি ক্লাসে সব জিনিস ধরতে পারতাম না, এইটা আজ অবধি সত্য কিন্তু পরে বাসায় এসে ঘেটে দেখে শিখে নিতাম/চেষ্টা করতাম, এখনো তাই করি। একাডেমিক কোর্সের ক্ষেত্রেও তা সত্য।\nআমার ৩/৪ নাম্বার ক্লাসেই রাজকিন ভাইয়া BFS, DFS, Trie, Heap শিখাইছিল। কন্সেপ্ট ধরতে পারছি কিন্তু কোডের কিছুই বুঝি নাই । কিন্তু আমি ছাড়ি নাই।\nআমি হুমায়ুন আহমেদের বই পড়া মানুষ তা ছাড়া বহু মানুষের কথা শুনছি এবং লিখা পড়ছি। “কচ্ছপের মতো কামড় দিয়ে” ধরে থাকতে পারি। হেরে যাওয়ার আগে হারতে রাজী না কিংবা বিলীন হতে রাজী না। আমি স্লো লার্নার কিন্তু লার্নার।\nআমি এই শিখার এবং পার্টিসিপেট করার জার্নিটাকে ইঞ্জয় করছি। আমার বলার মতো কিংবা “সিভি” তে এড করার মতো কোন র‍্যাংক নাই, হবে নাকি জানিও না।\nএতোগুলা কথা বলার কারণ ৪ দিনের workshop(BRACU Competitive Programming Workshop, April-May 2017) এ প্রতিদিন মানুষ কমছে যেটা এক্সপেক্টেড ছিল। চেষ্টা না করেই পারবো না বলাটা ঠিক মানানসই না। কেউ কোনকিছুতে ইন্টারেস্টেড ফিল না করলে ভিন্ন কথা। কিন্তু ইন্টারেস্টেড হয়েও নিজের উপর ভরসা না পাওয়াটা সমস্যা। ১/২ মাস চেষ্টা করো , এরপর যদি মনে হয় যে সম্ভব না তাহলে QUIT করো (Wasif ভাইয়া এই কথাটা বলছিল)। কচ্ছপের মতো শুধু পরে থাকাতে আবার সার্থকতা নেই। একটু একটু করে আগাতেও হবে সাথে।\nHappy Coding :)\n[ লিখাটা যতোটা না অন্যের জন্য তার চেয়ে বেশি নিজের জন্য ]"
@@ -25,6 +53,6 @@
     "href": "index.html",
     "title": "jabers-blog-quarto",
     "section": "",
-    "text": "Welcome To My Blog\n\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\n\n\nDec 13, 2022\n\n\nTristan O’Malley\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nকম্পিটিটিভ প্রোগ্রামিং -এ আমার পদার্পণ\n\n\n\n\n\n\n\nCompetitive Programming\n\n\nMy Story\n\n\n\n\nHow I started Competitive Programming\n\n\n\n\n\n\nDec 13, 2022\n\n\nMir Mohammad Jaber\n\n\n\n\n\n\nNo matching items"
+    "text": "Multi-stage Docker Build for Python Application\n\n\n\n\n\n\n\nPython\n\n\nPoetry\n\n\nDocker\n\n\nEnglish\n\n\n\n\nMulti-stage docker build for python application\n\n\n\n\n \n\n\n\n\n\n\n\n\n\n\n\n\n\nকম্পিটিটিভ প্রোগ্রামিং -এ আমার পদার্পণ\n\n\n\n\n\n\n\nCompetitive Programming\n\n\nMy Story\n\n\n\n\nHow I started Competitive Programming\n\n\n\n\n\n\nMay 1, 2017\n\n\nMir Mohammad Jaber\n\n\n\n\n\n\nNo matching items"
   }
 ]

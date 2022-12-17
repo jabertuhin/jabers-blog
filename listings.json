@@ -2,8 +2,8 @@
   {
     "listing": "/index.html",
     "items": [
-      "/posts/welcome/index.html",
-      "/posts/cp-journey/index.html"
+      "/posts/multi-stage-docker-build/index.html",
+      "/posts/my-cp-journey/index.html"
     ]
   }
 ]

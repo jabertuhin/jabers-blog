@@ -2,18 +2,18 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://github.com/jabertuhin/jabers-blog-quarto/about.html</loc>
-    <lastmod>2022-12-17T09:18:41.217Z</lastmod>
+    <lastmod>2022-12-17T18:30:09.662Z</lastmod>
   </url>
   <url>
-    <loc>https://github.com/jabertuhin/jabers-blog-quarto/posts/welcome/index.html</loc>
-    <lastmod>2022-12-17T09:18:41.853Z</lastmod>
+    <loc>https://github.com/jabertuhin/jabers-blog-quarto/posts/multi-stage-docker-build/index.html</loc>
+    <lastmod>2022-12-17T18:30:11.630Z</lastmod>
   </url>
   <url>
-    <loc>https://github.com/jabertuhin/jabers-blog-quarto/posts/cp-journey/index.html</loc>
-    <lastmod>2022-12-17T09:18:42.181Z</lastmod>
+    <loc>https://github.com/jabertuhin/jabers-blog-quarto/posts/my-cp-journey/index.html</loc>
+    <lastmod>2022-12-17T18:30:13.370Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/jabertuhin/jabers-blog-quarto/index.html</loc>
-    <lastmod>2022-12-17T09:18:42.509Z</lastmod>
+    <lastmod>2022-12-17T18:30:13.722Z</lastmod>
   </url>
 </urlset>
