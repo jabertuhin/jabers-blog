@@ -1,1 +1,0 @@
-Sitemap: https://github.com/jabertuhin/jabers-blog-quarto/sitemap.xml
