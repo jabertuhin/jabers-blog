@@ -14,6 +14,6 @@ format:
   html:
     theme: morph
     css: styles.css
+    smooth-scroll: true
 
-
-
+comments: false
