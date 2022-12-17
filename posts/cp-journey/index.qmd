@@ -4,7 +4,7 @@ author: "Mir Mohammad Jaber"
 description: How I started Competitive Programming
 date: "2022-12-13"
 categories: [Competitive Programming, My Story]
-title-block-banner: "#D8D3D2"
+title-block-banner: "#F1F1F1"
 ---
 ব্র্যাকে ভর্তি হয়ে বেশ কিছুদিন(কয়েক মাস,এখনও কিছু সময়ের জন্য সত্য) ধরে প্রচন্ড রকমের মন খারাপ। কোন একদিন ফেসবুকে ব্র্যাকে ভার্সিটি রিলেটেড সব গ্রুপে জয়েনে রিকুয়েস্ট করি। সেভাবেই এই গ্রুপের সন্ধান পাওয়া।
 
