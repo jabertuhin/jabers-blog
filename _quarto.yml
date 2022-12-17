@@ -7,12 +7,12 @@ website:
     right:
       - about.qmd
       - icon: github
-        href: https://github.com/
+        href: https://github.com/jabertuhin
       - icon: twitter
-        href: https://twitter.com
+        href: https://twitter.com/jabertuhin
 format:
   html:
-    theme: cosmo
+    theme: morph
     css: styles.css
 
 
