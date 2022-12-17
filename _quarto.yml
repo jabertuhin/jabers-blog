@@ -2,7 +2,7 @@ project:
   type: website
 
 website:
-  title: "jabers-blog-quarto"
+  title: "Jaber's Blog"
   navbar:
     right:
       - about.qmd
@@ -12,5 +12,8 @@ website:
         href: https://twitter.com/jabertuhin
 format:
   html:
-    theme: morph
+    theme: sketchy
     css: styles.css
+    smooth-scroll: true
+
+comments: false
