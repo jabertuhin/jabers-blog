@@ -17,5 +17,7 @@ format:
     smooth-scroll: true    
     title-block-banner: true
     title-block-banner-color: "#CDBAB6"
+    from: markdown+emoji
+
 
 comments: false
