@@ -1,5 +1,4 @@
 ---
-layout: post
 title: মেশিন লার্নিং ইন্টার্ভিউ প্রিপারেশন (Machine Learning Interview Preparation)
 description: Machine Learning Interview Preparation
 date: "2021-03-06"
@@ -7,8 +6,7 @@ toc: true
 categories: [Interview Preparation, Machine Learning, Bangla]
 image: "mle-interview-preparation.png"
 format:
-  html:
-    code-line-numbers: true
+  html:    
     code-block-background: true
     title-block-banner: "#F1F1F1"    
 ---
