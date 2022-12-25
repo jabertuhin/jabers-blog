@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.280">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2021-07-03">
+<meta name="description" content="Strategy Design Pattern">
+
+<title>Jaber’s Blog - স্ট্র্যাটিজি প্যাটার্ন (Strategy Pattern)</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+<style>
+    .quarto-title-block .quarto-title-banner {
+      color: #4a6c6f;
+background: #F1F1F1;
+    }
+    </style>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Jaber’s Blog</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html">
+ <span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/jabertuhin"><i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/jabertuhin"><i class="bi bi-twitter" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">স্ট্র্যাটিজি প্যাটার্ন (Strategy Pattern)</h1>
+                  <div>
+        <div class="description">
+          Strategy Design Pattern
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">Design Pattern</div>
+                <div class="quarto-category">Python</div>
+                <div class="quarto-category">Bangla</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">July 3, 2021</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#পরবলম" id="toc-পরবলম" class="nav-link active" data-scroll-target="#পরবলম">প্রবলেম</a></li>
+  <li><a href="#সমধন" id="toc-সমধন" class="nav-link" data-scroll-target="#সমধন">সমাধান</a>
+  <ul class="collapse">
+  <li><a href="#সধরণ-পনথয়" id="toc-সধরণ-পনথয়" class="nav-link" data-scroll-target="#সধরণ-পনথয়"><span class="emoji" data-emoji="arrow_right">➡️</span> সাধারণ পন্থায়</a></li>
+  <li><a href="#strategy-pattern-বযবহরর-মধযম" id="toc-strategy-pattern-বযবহরর-মধযম" class="nav-link" data-scroll-target="#strategy-pattern-বযবহরর-মধযম"><span class="emoji" data-emoji="arrow_right">➡️</span> Strategy Pattern ব্যবহারের মাধ্যমে</a></li>
+  </ul></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<p>ডিজাইন প্যাটার্নের গুরুত্ব আমরা সকলেই কমবেশি জানি। সফটওয়্যার ডেভলপমেন্টের ক্ষেত্রে ডিজাইন প্যাটার্নগুলো জানা থাকলে আমাদের বিভিন্ন প্রবলেম সঠিক ডিজাইন মেইনটেইন করে সলভ করা সহজ হয়ে যাবে। এই ব্লগ পোস্টে আমরা এরই লক্ষ্যে “স্ট্র্যাটেজি প্যাটার্ন” সম্পর্কে জানতে চেষ্টা করবো।</p>
+<p>প্রথমে naive এপ্রোচে একটা সলিউশন দাঁড় করানোর চেষ্টা করবো। পরবর্তীতে স্ট্র্যাটেজি প্যাটার্নকে ব্যবহার করে কিভাবে আমরা সেটাকে আরও ভালোভাবে ডিজাইন করতে পারি সেটা দেখবো।</p>
+<section id="পরবলম" class="level2">
+<h2 class="anchored" data-anchor-id="পরবলম">প্রবলেম</h2>
+<p>আমরা ছোট একটা ভিডিও গেমের কথা চিন্তা করি - ক্রিকেটের একটা গেম হবে, যেখানে বিভিন্ন দেশের বিভিন্ন খেলোয়াড় থাকবে। এখন এই খেলোয়াড়দের কথা মাথায় রেখে আসুন আমরা কিছু ক্লাস ডিজাইন করি।</p>
+</section>
+<section id="সমধন" class="level2">
+<h2 class="anchored" data-anchor-id="সমধন">সমাধান</h2>
+<section id="সধরণ-পনথয়" class="level3">
+<h3 class="anchored" data-anchor-id="সধরণ-পনথয়"><span class="emoji" data-emoji="arrow_right">➡️</span> সাধারণ পন্থায়</h3>
+<p>প্রথমে OOP এর কনসেপ্ট ধরে যদি চিন্তা করি - আমরা Player নামের একটা ইন্টার্ফেস তৈরি করতে পারি। যার <code>bat()</code> এবং <code>bowl()</code> নামের দুইটা মেথডকে ইমপ্লিমেন্ট করতে হবে। Player ক্লাসটা সেক্ষেত্রে নিম্নরূপ হবে <span class="emoji" data-emoji="point_down">👇</span></p>
+<p>(<span class="emoji" data-emoji="hash">#️⃣</span> এখানে একটু বলে রাখা ভালো, পাইথনের ইন্টার্ফেস তৈরি পদ্ধতি অন্য স্ট্যাটিক টাইপড ল্যাঙ্গুয়েজ থেকে বেশ আলাদা। )</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">from</span> abc <span class="im">import</span> ABC, abstractmethod</span>
+<span id="cb1-2"><a href="#cb1-2"></a></span>
+<span id="cb1-3"><a href="#cb1-3"></a></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="kw">class</span> Player(ABC):</span>
+<span id="cb1-5"><a href="#cb1-5"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, name: <span class="bu">str</span>, country: <span class="bu">str</span>):</span>
+<span id="cb1-6"><a href="#cb1-6"></a>        <span class="va">self</span>.name <span class="op">=</span> name</span>
+<span id="cb1-7"><a href="#cb1-7"></a>        <span class="va">self</span>.country <span class="op">=</span> country    </span>
+<span id="cb1-8"><a href="#cb1-8"></a></span>
+<span id="cb1-9"><a href="#cb1-9"></a>    <span class="at">@abstractmethod</span></span>
+<span id="cb1-10"><a href="#cb1-10"></a>    <span class="kw">def</span> bat(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
+<span id="cb1-11"><a href="#cb1-11"></a>        <span class="cf">raise</span> <span class="pp">NotImplementedError</span></span>
+<span id="cb1-12"><a href="#cb1-12"></a></span>
+<span id="cb1-13"><a href="#cb1-13"></a>    <span class="at">@abstractmethod</span></span>
+<span id="cb1-14"><a href="#cb1-14"></a>    <span class="kw">def</span> bowl(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
+<span id="cb1-15"><a href="#cb1-15"></a>        <span class="cf">raise</span> <span class="pp">NotImplementedError</span></span>
+<span id="cb1-16"><a href="#cb1-16"></a></span>
+<span id="cb1-17"><a href="#cb1-17"></a>    <span class="kw">def</span> <span class="fu">__str__</span>(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="bu">str</span>:</span>
+<span id="cb1-18"><a href="#cb1-18"></a>        <span class="cf">return</span> <span class="ss">f"My name is </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>name<span class="sc">}</span><span class="ss">. I'm from </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>country<span class="sc">}</span><span class="ss">."</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>এখন এই Player ইন্টার্ফেসকে ব্যবহার করে আমি আমাদের ওপেনার তামিম ইকবাল খান-এর একটা ক্লাস যদি তৈরি করতে চাই। সেই ক্লাসটি হবে নিম্নরূপ <span class="emoji" data-emoji="point_down">👇</span></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">class</span> Tamim(Player):    </span>
+<span id="cb2-2"><a href="#cb2-2"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, name: <span class="bu">str</span>, country: <span class="bu">str</span>):</span>
+<span id="cb2-3"><a href="#cb2-3"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>(name, country)        </span>
+<span id="cb2-4"><a href="#cb2-4"></a></span>
+<span id="cb2-5"><a href="#cb2-5"></a>    <span class="kw">def</span> bat(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
+<span id="cb2-6"><a href="#cb2-6"></a>        <span class="co">"""Implementation of Tamim's batting."""</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a></span>
+<span id="cb2-8"><a href="#cb2-8"></a>    <span class="kw">def</span> bowl(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
+<span id="cb2-9"><a href="#cb2-9"></a>        <span class="co">"""Implementation of Tamim's bowling."""</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>একজন ওপেনিং ব্যাটসম্যানের পরে এখন আমরা একজন বোলার, মুস্তাফিজুর রহমানের ক্লাস অনুরূপভাবে তৈরি করতে পারি।</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">class</span> Mustafizur(Player):    </span>
+<span id="cb3-2"><a href="#cb3-2"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, name: <span class="bu">str</span>, country: <span class="bu">str</span>):</span>
+<span id="cb3-3"><a href="#cb3-3"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>(name, country)        </span>
+<span id="cb3-4"><a href="#cb3-4"></a></span>
+<span id="cb3-5"><a href="#cb3-5"></a>    <span class="kw">def</span> bat(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
+<span id="cb3-6"><a href="#cb3-6"></a>        <span class="co">"""Implementation for Mustafizur's batting."""</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a></span>
+<span id="cb3-8"><a href="#cb3-8"></a>    <span class="kw">def</span> bowl(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
+<span id="cb3-9"><a href="#cb3-9"></a>        <span class="co">"""Implementation for Mustafizur's bowling."""</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>এইক্ষেত্রে আমরা যদি তামিম এবং মুস্তাফিজুরের অব্জেক্ট তৈরি করতে চাই, তা খুব সহজেই আমরা করতে পারবো নিম্নোক্তভাবে <span class="emoji" data-emoji="point_down">👇</span></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>Tamim <span class="op">=</span> Tamim(name<span class="op">=</span><span class="st">"Tamim Iqbal"</span>, country<span class="op">=</span><span class="st">"Bangladesh"</span>)</span>
+<span id="cb4-2"><a href="#cb4-2"></a>Mustafizur <span class="op">=</span> Mustafizur(name<span class="op">=</span><span class="st">"Mustafizur Rahman"</span>, country<span class="op">=</span><span class="st">"Bangladesh"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>আপাত দৃষ্টিতে সব ঠিক মনে হচ্ছে। তামিমের জন্য আলাদা একটা ক্লাস ডিজাইন করে নিয়েছি, মুস্তাফিজের জন্যও আলাদা ক্লাস করে নিয়েছি।</p>
+<p>এখন আমরা যদি বাংলাদেশ জাতীয় দলের অন্যান্য খেলোয়াড়দের ক্লাস তৈরি করতে চাই? এরপর ভারতের খেলোয়াড়দের?</p>
+<p>প্রত্যেক খেলোয়াড়ের জন্যই তাহলে আমাকে আলাদা করে একটা ক্লাস তৈরি করতে হবে এবং সেই ক্লাসে <code>bat()</code> ও <code>bowl()</code> দুইটা মেথডকে প্রতিবার ইমপ্লিমেন্টও করতে হবে। এখন যদি একটু খেয়াল করি- তামিম, সাকিব, সৌম্য এরা প্রত্যেকেই বামহাতি ব্যাটসম্যান। সুতরাং, প্রত্যেক বামহাতি প্লেয়ারের জন্যও আমি বারবার <code>bat()</code> মেথড একইভাবে ইমপ্লিমেন্ট করছি। এবার মুস্তাফিজ বামহাতি ব্যাটসম্যান হলেও তাকে আমরা ঠিক ব্যাটসম্যান ক্যাটাগরিতে ফেলবো না। তার ক্ষেত্রে ব্যাটিং করার ইমপ্লিমেন্টেশন আলাদা হওয়া উচিত।</p>
+<p>আমাদের বর্তমান ডিজাইন অনুযায়ী ব্যাটিং, বোলিং এর ইমপ্লিমেন্টেশন একেকটা ক্লাসের অর্থাৎ একেকজন খেলোয়াড়ের সাথে কাপল্ড(coupled) হয়ে যাচ্ছে, যাকে পরবর্তীতে আমরা পুনর্বার ব্যবহারও করতে পারছি না।</p>
+</section>
+<section id="strategy-pattern-বযবহরর-মধযম" class="level3">
+<h3 class="anchored" data-anchor-id="strategy-pattern-বযবহরর-মধযম"><span class="emoji" data-emoji="arrow_right">➡️</span> Strategy Pattern ব্যবহারের মাধ্যমে</h3>
+<p>সামনে যাওয়ার পূর্বে আমাদেরকে দুটো কন্সেপ্টের সাথে পরিচিত থাকতে হবে। কনসেপ্টগুলো হলো -</p>
+<p><span class="emoji" data-emoji="one">1️⃣</span> <a href="https://betterprogramming.pub/prefer-composition-over-inheritance-1602d5149ea1">Composition over Inheritence</a></p>
+<p><span class="emoji" data-emoji="two">2️⃣</span> <a href="https://en.wikipedia.org/wiki/Dependency_injection">Dependency injection</a></p>
+<p>এগুলোর সাহায্য নিয়ে আমরা <strong>Strategy Pattern</strong> প্রয়োগ করে উপরের সমস্যাগুলো থেকে মুক্তি পেতে পারি।</p>
+<p>আমরা এখন <code>IBattingStyle</code> ও <code>IBowlingStyle</code> এ দু’টো নতুন ইন্টার্ফেস নিয়ে আসছি। এই ইন্টার্ফেসগুলো ব্যবহার করে আমরা আমাদের পুর্বের Player ক্লাসকে নতুন করে ডিফাইন করবো।</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a><span class="im">from</span> abc <span class="im">import</span> ABC, abstractmethod</span>
+<span id="cb5-2"><a href="#cb5-2"></a></span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="kw">class</span> IBattingStyle(ABC):</span>
+<span id="cb5-4"><a href="#cb5-4"></a>    <span class="at">@abstractmethod</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a>    <span class="kw">def</span> bat(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
+<span id="cb5-6"><a href="#cb5-6"></a>        <span class="cf">raise</span> <span class="pp">NotImplementedError</span></span>
+<span id="cb5-7"><a href="#cb5-7"></a></span>
+<span id="cb5-8"><a href="#cb5-8"></a><span class="kw">class</span> IBowlingStyle(ABC):</span>
+<span id="cb5-9"><a href="#cb5-9"></a>    <span class="at">@abstractmethod</span></span>
+<span id="cb5-10"><a href="#cb5-10"></a>    <span class="kw">def</span> bowl(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
+<span id="cb5-11"><a href="#cb5-11"></a>        <span class="cf">raise</span> <span class="pp">NotImplementedError</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>এখন আমরা আমাদের নতুন Player ক্লাসটা যদি লক্ষ্য করি <span class="emoji" data-emoji="point_down">👇</span></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">class</span> Player:</span>
+<span id="cb6-2"><a href="#cb6-2"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, name: <span class="bu">str</span>, </span>
+<span id="cb6-3"><a href="#cb6-3"></a>                       country: <span class="bu">str</span>,</span>
+<span id="cb6-4"><a href="#cb6-4"></a>                       batting_style: IBattingStyle,</span>
+<span id="cb6-5"><a href="#cb6-5"></a>                       bowling_style: IBowlingStyle):</span>
+<span id="cb6-6"><a href="#cb6-6"></a>        <span class="va">self</span>.name <span class="op">=</span> name</span>
+<span id="cb6-7"><a href="#cb6-7"></a>        <span class="va">self</span>.country <span class="op">=</span> country</span>
+<span id="cb6-8"><a href="#cb6-8"></a>        <span class="va">self</span>.batting_style <span class="op">=</span> batting_style</span>
+<span id="cb6-9"><a href="#cb6-9"></a>        <span class="va">self</span>.bowling_style <span class="op">=</span> bowling_style</span>
+<span id="cb6-10"><a href="#cb6-10"></a></span>
+<span id="cb6-11"><a href="#cb6-11"></a>    <span class="kw">def</span> bat(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
+<span id="cb6-12"><a href="#cb6-12"></a>        <span class="va">self</span>.batting_style.bat()</span>
+<span id="cb6-13"><a href="#cb6-13"></a></span>
+<span id="cb6-14"><a href="#cb6-14"></a>    <span class="kw">def</span> bowl(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
+<span id="cb6-15"><a href="#cb6-15"></a>        <span class="va">self</span>.bowling_style.bowl()</span>
+<span id="cb6-16"><a href="#cb6-16"></a></span>
+<span id="cb6-17"><a href="#cb6-17"></a>    <span class="kw">def</span> <span class="fu">__str__</span>(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="bu">str</span>:</span>
+<span id="cb6-18"><a href="#cb6-18"></a>        <span class="cf">return</span> <span class="ss">f"My name is </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>name<span class="sc">}</span><span class="ss">. I'm from </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>country<span class="sc">}</span><span class="ss">."</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Player ক্লাসটার কাজ বদলায় নি, কিন্তু চেহারা বদলে গেছে। আমাদের ক্লাস এখন <code>__init__</code> এ দু’টোর বদলে মোট ৪ টা আর্গুমেন্ট এক্সপেক্ট করছে। এখানে আমরা প্রতিটা খেলোয়াড়ের ব্যাটিং স্টাইল, বোলিং স্টাইল সেই খেলোয়াড়ের অব্জেক্ট তৈরি করার সময় দিয়ে দিতে পারবো। আর Player ক্লাসের <code>bat()</code> ও <code>bowl()</code> মেথড যাদের পুর্বে ইমপ্লিমেন্ট করতে হতো, এখন সেই মেথডগুলো শুধু <code>batting_style</code> ও <code>bowling_style</code> অবজেক্টের ইমপ্লিমেন্টেড মেথডকে কল করবে । এখানে Player ক্লাসকে কোন নির্দিষ্ট ব্যাটিং, বোলিং স্টাইলের ইমপ্লিমেন্টেশনের বিস্তারিত জানতে হচ্ছে না। শুধু নির্দিষ্ট একটা কাজ করার জন্য ইন্টার্ফেসের কোন মেথডকে কল করতে হবে, সেটা জানলেই হচ্ছে।</p>
+<p><code>IBattingStyle</code>, <code>IBowlingStyle</code> এর কি ধরনের ইমপ্লিমেন্টেশন হতে পারে যদি একটু দেখে নিই, তাহলে আমাদের পুরো জিনিসটা বুঝতে হয়তো আরেকটু সুবিধা হবে।</p>
+<p>Implementations of <code>IBattingStyle</code></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw">class</span> LeftHandBatting(IBattingStyle):</span>
+<span id="cb7-2"><a href="#cb7-2"></a>    <span class="kw">def</span> bat(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
+<span id="cb7-3"><a href="#cb7-3"></a>        <span class="co">"""Implementation for Left-hand Batting."""</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a></span>
+<span id="cb7-5"><a href="#cb7-5"></a><span class="kw">class</span> RightHandBatting(IBattingStyle):</span>
+<span id="cb7-6"><a href="#cb7-6"></a>    <span class="kw">def</span> bat(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
+<span id="cb7-7"><a href="#cb7-7"></a>        <span class="co">"""Implementation for Right-hand Batting."""</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>এখানে <span class="emoji" data-emoji="point_up_2">👆</span> আমাদের প্রয়োজন হলে <code>LeftHandAggresiveBatting</code> একটা ইমপ্লিমেন্টেশনও যোগ করতে পারি।</p>
+<p>Implementations of <code>IBowlingStyle</code></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">class</span> LeftHandFastBowling(IBowlingStyle):</span>
+<span id="cb8-2"><a href="#cb8-2"></a>    <span class="kw">def</span> bowl(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
+<span id="cb8-3"><a href="#cb8-3"></a>        <span class="co">"""Implementation for Left-hand fast bowler."""</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a></span>
+<span id="cb8-5"><a href="#cb8-5"></a><span class="kw">class</span> RightHandFastBowling(IBowlingStyle):</span>
+<span id="cb8-6"><a href="#cb8-6"></a>    <span class="kw">def</span> bowl(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
+<span id="cb8-7"><a href="#cb8-7"></a>        <span class="co">"""Implementation for Right-hand fast bowler."""</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>আর <span class="emoji" data-emoji="point_up_2">👆</span> এখানে তো আমাদের অবশ্যই <code>LeftArmOffBreakBowling</code>, <code>RightArmOffBreakBowling</code> ইমপ্লিমেন্টেশনগুলোর কথা চিন্তা করতেই হবে।</p>
+<p>আমরা পুর্বে যে তামিম, মুস্তাফিজুরের অবজেক্ট তৈরি করেছিলাম, তা বর্তমান ডিজাইনের সাপেক্ষে কেমন হবে তা দেখে নেয়া যাক <span class="emoji" data-emoji="point_down">👇</span></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># For the sake of the example, assume Tamim is Left-hand fast bowler.</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a>Tamim <span class="op">=</span> Player(name<span class="op">=</span><span class="st">"Tamim Iqbal"</span>, </span>
+<span id="cb9-3"><a href="#cb9-3"></a>            country<span class="op">=</span><span class="st">"Bangladesh"</span>,</span>
+<span id="cb9-4"><a href="#cb9-4"></a>            batting_style<span class="op">=</span>LeftHandBatting(),</span>
+<span id="cb9-5"><a href="#cb9-5"></a>            bowling_style<span class="op">=</span>LeftHandFastBowling())</span>
+<span id="cb9-6"><a href="#cb9-6"></a></span>
+<span id="cb9-7"><a href="#cb9-7"></a>Mustafizur <span class="op">=</span> Player(name<span class="op">=</span><span class="st">"Mustafizur Rahman"</span>, </span>
+<span id="cb9-8"><a href="#cb9-8"></a>                country<span class="op">=</span><span class="st">"Bangladesh"</span>, </span>
+<span id="cb9-9"><a href="#cb9-9"></a>                batting_style<span class="op">=</span>LeftHandBatting(), </span>
+<span id="cb9-10"><a href="#cb9-10"></a>                bowling_style<span class="op">=</span>LeftHandFastBowling())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>এখন আমরা চাইলেই খুব সহজে সাকিব আল হাসান, বিরাট কোহলির মতও খেলোয়াড়দের অবজেক্ট তৈরি করে ফেলতে পারবো। যার জন্য Player ক্লাসে কোন ধরনের পরিবর্তন আসবে না। বিরাট কোহলি এর জন্য শুধু নতুন <code>RightHandMediumFastBowling</code> এর ইমপ্লিমেন্টেশন লাগবে আমাদের, আর <code>RightHandBatting</code> এর ইমপ্লিমেন্টেশন আমাদের কাছে ইতিমধ্যেই আছে। এরপর শুধু অবজেক্ট তৈরি করার সময় তার নাম, দেশের নাম দিয়ে দিলেই হয়ে যাবে।</p>
+<p>অনুশীলনের জন্য আপনি আরও কিছু খেলোয়াড়ের অবজেক্ট তৈরি করার কথা চিন্তা করতে পারেন। কিভাবে করবেন, আর তাদের জন্য কি লাগতে পারে।</p>
+<p>এই যে আমরা আমাদের প্লেয়ারদের ব্যাটিং, বোলিং করার ধরনকে আলাদা রাখছি এবং তা রানটাইমে বলে দিচ্ছি - এর মাধ্যমেই আমরা <strong>Strategy Design Pattern</strong>-কে ফলো করছি। এখন যদি <strong>Strategy Design Pattern</strong> এর কিতাবি সংজ্ঞা দেখে নিই</p>
+<blockquote class="blockquote">
+<p>The Strategy Pattern defines a family of algorithms, encapsulates each one, and makes them interchangeable. Strategy lets the algorithm vary independently from clients that use it.</p>
+</blockquote>
+<p>এই সংজ্ঞা এর সাথে আমাদের উপরের উদাহরণটা মিলিয়ে নিলেই বুঝতে পারবেন আমরা কিভাবে <em>Strategy Design Pattern</em> কে ফলো করেছি। ডিজাইন প্যাটার্নের ৩ টি ধরন আছে, এই <em>Strategy Design Pattern</em> তার মধ্যে <strong>Behavioral Patterns</strong> এর মধ্যে পড়ে।</p>
+</section>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<ul>
+<li><p><a href="https://refactoring.guru/design-patterns/strategy">RefactoringGuru: Strategy Pattern</a></p></li>
+<li><p><a href="https://blog.bitsrc.io/keep-it-simple-with-the-strategy-design-pattern-c36a14c985e9">Keep it Simple with the Strategy Design Pattern</a></p></li>
+<li><p><a href="https://www.oreilly.com/library/view/head-first-design/0596007124/">Head First Design Patterns</a></p></li>
+<li><p><a href="https://testdriven.io/blog/python-dependency-injection/">Python Dependency Injection</a></p></li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

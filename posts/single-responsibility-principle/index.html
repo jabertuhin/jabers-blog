@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.280">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2020-06-19">
+<meta name="description" content="Single Responsibility Principle">
+
+<title>Jaber’s Blog - সিঙ্গেল রেস্পন্সিবিলিটি প্রিন্সিপল (Single Responsibility Principle)</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+<style>
+    .quarto-title-block .quarto-title-banner {
+      color: #4a6c6f;
+background: #F1F1F1;
+    }
+    </style>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Jaber’s Blog</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html">
+ <span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/jabertuhin"><i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/jabertuhin"><i class="bi bi-twitter" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">সিঙ্গেল রেস্পন্সিবিলিটি প্রিন্সিপল (Single Responsibility Principle)</h1>
+                  <div>
+        <div class="description">
+          Single Responsibility Principle
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">Software Design Principle</div>
+                <div class="quarto-category">Software Engineering</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">June 19, 2020</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<p>অব্জেক্ট ওরিয়েন্টেড প্রোগ্রামিং নিয়ে যারা কাজ করেছেন এবং কোনদিন ডিজাইন প্রিন্সিপল বিষয়ে গুগল করেছেন - SOLID principles টার্মটার সাথে তারা কমবেশি সবাই পরিচিত।</p>
+<p>অব্জেক্ট ওরিয়েন্টেড প্রোগ্রামিং এর ৫-টি গুরুত্বপূর্ণ ডিজাইন প্রিন্সিপলের প্রথম অক্ষর নিয়ে এই S.O.L.I.D. টার্মটির উদ্ভব হয়েছে। এইসব ডিজাইন প্রিন্সিপলগুলো একটি সফটওয়্যার ডিজাইনকে সহজে বুঝতে সাহায্য করে, সেটাকে রক্ষণাবেক্ষণে সাহায্য করে এবং পরবর্তীতে সফটওয়্যার-এর পরিধি বৃদ্ধিকে সহজ করে। সকল সফটওয়্যার ইঞ্জিনিয়ারের এইসব ডিজাইন প্রিন্সিপল সম্পর্কে ধারণা থাকা জরুরি।</p>
+<p>আজকে আমরা এই S.O.L.I.D. -এর S নিয়ে আলোচনা করবো।</p>
+<p>S = Single Responsibility Principle(SRP)</p>
+<p>এই প্রিন্সিপলের মূল কথা হচ্ছে - “A class should have one, and only one, reason to change.” যেটাকে আরেকটু সহজবোধ্য করা যায় যদি বলি - একটি ক্লাস শুধুমাত্র একটি নির্দিষ্ট বিষয়েই কাজ করবে এবং সেই কাজের জন্যই শুধুমাত্র পরিবর্তিত হবে। এটি ক্লাসের মেথডের জন্যও সত্য, আবার একটি মডিউলের কথা বললে সেখানেও সত্য।</p>
+<p>দেখুন, দৈনন্দিন জীবনে প্রতিনিয়ত আমরা এই প্রিন্সিপল মেনেই কিন্তু কাজ করছি। উদাহরণস্বরূপ, ইউনিভার্সিটিতে ভর্তি প্রক্রিয়ার কথা চিন্তা করতে পারি। আমরা রেজিস্ট্রার অফিস থেকে একটা ফর্ম তুলি এবং সেটা ফিলাপ করি। এরপরে ব্যাংকে নির্দিষ্ট পরিমাণ টাকা জমা দিয়ে রিসিপ্ট সংগ্রহ করি, মেডিকেল চেকাপ করিয়ে একটা এপ্রুভাল সংগ্রহ করি, আরো কোন বাড়তি কাজ থাকলে সেগুলো সম্পন্ন করে সকল কাগজ একসাথে আবার রেজিস্ট্রেশন অফিসে জমা দিই। মেডিকেল চেকের সময় কিন্তু ডাক্তার টাকা জমা নিচ্ছে না, কিংবা ব্যাংকে টাকা জমা দেয়ার সময় আমার হেলথ চেকাপের কাজটিও করে দিচ্ছে না।</p>
+<p>উপরের উদাহরণের প্রত্যেকটি কাজ স্বতন্ত্র, শুধু রেজিস্ট্রার অফিস চেক করে প্রত্যেকটি কাজ সঠিকভাবে সম্পন্ন হয়েছি কি-না। প্রত্যেকে আলাদাভাবে কিভাবে কাজ করেছে সেটা কিন্তু আবার তার দেখার বিষয় না।</p>
+<p>উপরের বাস্তবিক ঘটনা থেকে একধরনের আন্দাজ পাওয়ার কথা Single Responsibility বলতে কি বোঝায়। সেখানে একজনের কাজের ধরনে পরিবর্তন হলে অন্য আরেকজনের কাজে তা প্রভাব ফেলবে না। ভার্সিটি এখন যদি বিকাশের মাধ্যমে টাকা নেয়ার শুরু করে তবে কিন্তু শুধুমাত্র একটা জায়গায় পরিবর্তন হচ্ছে, বাকিসব আগের মতোই থাকছে। আমরা এই লিখা থেকে যা বুঝতে চাচ্ছি তার মূল উদ্দেশ্যই এখানে। যে যার যার মতো কাজ করলে একজনের পরিবর্তন অন্যজনকে প্রভাবিত করবে না। যা একটি ভালো সফটওয়্যারের বৈশিষ্ট্য হওয়া উচিত।</p>
+<p>যেহেতু এখানে আমরা অব্জেক্ট ওরিয়েন্টেড প্রোগ্রামিং এর প্রিন্সিপল হিসেবে একে ব্যাখ্যা করতে চাচ্ছি, এবার তবে কোড দেখা যাক। (পাইথন প্রোগ্রামিং ল্যাঙ্গুয়েজ ব্যবহার করে কোডিং উদাহরণগুলো দেয়া হবে)</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">class</span> Student:</span>
+<span id="cb1-2"><a href="#cb1-2"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, name, <span class="bu">id</span>):</span>
+<span id="cb1-3"><a href="#cb1-3"></a>        <span class="va">self</span>.name <span class="op">=</span> name</span>
+<span id="cb1-4"><a href="#cb1-4"></a>        <span class="va">self</span>.<span class="bu">id</span> <span class="op">=</span> <span class="bu">id</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a></span>
+<span id="cb1-6"><a href="#cb1-6"></a>    <span class="kw">def</span> calculate_semester_fee(<span class="va">self</span>):</span>
+<span id="cb1-7"><a href="#cb1-7"></a>        <span class="co"># calculate semester_fee</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a>        <span class="cf">return</span> semester_fee</span>
+<span id="cb1-9"><a href="#cb1-9"></a></span>
+<span id="cb1-10"><a href="#cb1-10"></a>    <span class="kw">def</span> calculate_semester_cgpa(<span class="va">self</span>):</span>
+<span id="cb1-11"><a href="#cb1-11"></a>        <span class="co"># calculate semester_cgpa</span></span>
+<span id="cb1-12"><a href="#cb1-12"></a>        <span class="cf">if</span> semester_cgpa <span class="op">&lt;</span> <span class="fl">2.0</span>:</span>
+<span id="cb1-13"><a href="#cb1-13"></a>            <span class="co"># send message to guardian</span></span>
+<span id="cb1-14"><a href="#cb1-14"></a>        <span class="cf">return</span> semester_cgpa</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>এখানে Stuednt - নামের একটি ক্লাস তৈরি করা হয়েছে। যেখানে স্বাভাবিকভাবেই Student এর নাম এবং আইডি ফিল্ড আছে(<strong>init</strong> মেথডে ইনিশিয়ালাইজেশনের কাজ হয়ে থাকে)। তাছাড়া আমরা আরো দু’টি মেথড দেখতে পাচ্ছি -</p>
+<p>১. calculate_semester_fee - যার কাজ সেমিস্টারের ফি ক্যালকুলেট করা,</p>
+<p>২. calculate_semester_cgpa - যার কাজ সেমিস্টারের CGPA ক্যালকুলেট করা।</p>
+<p>Single Responsibility Principle এর মূলকথা এখানে কিভাবে ক্ষুন্ন হচ্ছে তা একটু দেখে নেয়া যাক। নিম্নোক্ত ব্যাখ্যা পড়ার আগে নিজে একবার চেষ্টা করে দেখুন, ভুলগুলো বের করতে পারেন কি-না কিংবা ভুলগুলো নিম্নোক্ত ব্যাখ্যার সাথে মিলে কি-না। একটা Student ক্লাসে যা কিছু থাকবে তার প্রতিটি-ই Student কেন্দ্রিক হতে হবে। আর এখানে যদি কোন পরিবর্তন আনতেই হয় সেটাকে অবশ্যই Student সম্বন্ধীয় হতে হবে।</p>
+<p>প্রথমে, calculate_semester_fee মেথডের কথায় আসি। একজন Student প্রতি সেমিস্টারে কি পরিমাণ ফি প্রদান করবে সেটা সেই Student এর দেখার বিষয় না। এটা ইউনিভার্সিটির কর্তৃপক্ষের দেখার বিষয়।</p>
+<p>একটা নির্দিষ্ট সময় পর পর ইউনিভার্সিটিগুলোর সেমিস্টার ফি-র পরিবর্তন হয়। তাছাড়াও নানা কারণে যেমন মাঝে একবার ভ্যাট দিতে হলো, এমন কোন কারণে সেমিস্টার ফি ক্যালকুলেশনের পরিবর্তন ঘটতে পারে। আমার বর্তমান Student ক্লাসের ডিজাইন অনুযায়ী, সেমিস্টার ফি-র ক্যালকুলেশন পরিবর্তনের জন্য আমার Student ক্লাসের calculate_semester_fee মেথডের ভিতরে পরিবর্তন করতে হচ্ছে। যেটা Student ক্লাসের সাথে সরাসরি সম্পর্কিত না।</p>
+<p>দ্বিতীয়ত, calculate_semester_cgpa মেথডে একজন Student এর এক সেমিস্টারের সিজিপিএ হিসেব করা হচ্ছে। সেই সিজিপিএ যদি আবার ২ এর থেকে কম হয় সেক্ষেত্রে অভিবাবকের কাছে ম্যাসেজ চলে যাবে। একটা ক্লাস দিয়ে সাধারণত আমরা কোনকিছুকে উপস্থাপন করি, উপস্থাপনায় কি ছাত্র-ছাত্রীর সিজিপিএ কিভাবে ক্যালকুলেট করা হচ্ছে তা থাকা উচিত? তার উপর সেই সিজিপিএ একটা নির্দিষ্ট সংখ্যার নিচে গেলে কি করতে হবে তাও বলে দেয়া হচ্ছে। ইউনিভার্সিটি যদি কোনদিন সিদ্ধান্ত নেয় ২ এর বদলে ১.৫ এর নিচে সিজিপিএ হলে স্তুডেন্টের অভিবাবকের কাছে ম্যাসেজ চলে যাবে কিংবা অভিভাবকের মোবাইলে ম্যাসেজ যাওয়ার পরিবর্তে মেইল যাবে এসবক্ষেত্রে আমাকে কোডে পরিবর্তন করতে হচ্ছে, যেটা কাম্য নয়।</p>
+<p>Student ক্লাসে আমার এমন দু’টি মেথড আছে যারা আমার ক্লাসের সাথে সরাসরি সম্পর্কিত না এবং তাদের জন্য আমার ক্লাসের কোডকে বারবার পরিবর্তন করতে হচ্ছে। এখানেই আমি Single Responsibility Principle মান্য করি নি।</p>
+<p>তবে সমাধান কি? উপরোক্ত ক্লাসকে ভেঙ্গে আমরা নতুন তিনটি ক্লাস তৈরি করতে পারি, যার প্রত্যেকে নির্দিষ্ট কাজের জন্য দায়ী থাকবে।</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">class</span> Student:</span>
+<span id="cb2-2"><a href="#cb2-2"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, name, <span class="bu">id</span>):</span>
+<span id="cb2-3"><a href="#cb2-3"></a>        <span class="va">self</span>.name <span class="op">=</span> name</span>
+<span id="cb2-4"><a href="#cb2-4"></a>        <span class="va">self</span>.<span class="bu">id</span> <span class="op">=</span> <span class="bu">id</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a></span>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="kw">class</span> SemesterFeeCalculationService:</span>
+<span id="cb2-7"><a href="#cb2-7"></a>    <span class="kw">def</span> calculate_semester_fee(<span class="va">self</span>, course_taken):</span>
+<span id="cb2-8"><a href="#cb2-8"></a>        <span class="co"># calculate semester_fee</span></span>
+<span id="cb2-9"><a href="#cb2-9"></a>        <span class="cf">return</span> semester_fee</span>
+<span id="cb2-10"><a href="#cb2-10"></a></span>
+<span id="cb2-11"><a href="#cb2-11"></a><span class="kw">class</span> CgpaCalculationService:</span>
+<span id="cb2-12"><a href="#cb2-12"></a>    <span class="kw">def</span> calculate_semester_cgpa(<span class="va">self</span>, student, minimum_cgpa):</span>
+<span id="cb2-13"><a href="#cb2-13"></a>        <span class="co"># calculate semester_cgpa</span></span>
+<span id="cb2-14"><a href="#cb2-14"></a>        <span class="cf">if</span> semester_cgpa <span class="op">&lt;</span> minimum_cgpa:</span>
+<span id="cb2-15"><a href="#cb2-15"></a>            <span class="co"># send message to guardian</span></span>
+<span id="cb2-16"><a href="#cb2-16"></a>        <span class="cf">return</span> semester_cgpa</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>এখন আমি যদি Student ক্লাসে নতুন ফিল্ড যোগ করতে চাই(যেমনঃ address) তবে <strong>Student</strong> ক্লাসকে, সেমিস্টার ফি ক্যালকুলেশনে পরিবর্তন করতে চাইলে <strong>SemesterFeeCalculationService</strong> ক্লাসকে কিংবা সিজিপিএ ক্যালকুলেশনে পরিবর্তন করতে চাইলে শুধুমাত্র *<strong>CgpaCalculationService</strong> ক্লাসকেই আমার পরিবর্তন করতে হবে। প্রত্যেকটি ক্লাস একটি নির্দিষ্ট ডোমেইনে কাজ করবে বলে এটি সম্ভব হয়েছে। উপরোক্ত প্রতিটা ক্লাসেই আমি নতুন মেথড এড করতে পারি, যার জন্য অন্য কারো কাজে কোন ক্ষতিও হবে না।</p>
+<p>একটি ক্লাস ভেঙ্গে নতুন ৩ টি ক্লাস তৈরি করার পরও এক জায়গায় সমস্যা রয়ে গেছে, সেটা <strong>CgpaCalculationService</strong> ক্লাসে। ক্যালকুলেটরের কাজ হবে শুধু ক্যালকুলেশন করে দেয়া, কম বা বেশি চেক করা তার কাজ হওয়া উচিত না। আবার সেটার প্রেক্ষিতে কোন একশন নেয়াও তার কাজের মধ্যে পড়ে না। এখন আমি মোবাইলে ম্যাসেজ পাঠাচ্ছি কিন্তু পরে মেইল যদি করার কথা চিন্তা করি কিংবা উভয়ই একসাথে করার কথা চিন্তা করি তবে কিন্তু আমার এই মেথডে পরিবর্তন আনতে হবে।</p>
+<p>আসুন, এই সমস্যাটা কিভাবে দূর করা যায় তা একটু দেখে নিই। প্রথমে <strong>CgpaCalculationService</strong> ক্লাসকে পরিষ্কার করি।</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">class</span> CgpaCalculationService:</span>
+<span id="cb3-2"><a href="#cb3-2"></a>    <span class="kw">def</span> calculate_semester_cgpa(<span class="va">self</span>, course_gpas):</span>
+<span id="cb3-3"><a href="#cb3-3"></a>        <span class="co"># calculate semester_cgpa</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a>        <span class="cf">return</span> semester_cgpa</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>আমরা কন্ডিশন চেকিং এর যে জায়গাটা গায়েব করে দিলাম সেটা তো কাউকে না কাউকে দেখতে হবে, এখন সেই ক্লাসটা তৈরি করা যাক -</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">class</span> DecisionMakingService:</span>
+<span id="cb4-2"><a href="#cb4-2"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, cgpa_calculation_service, minimum_cgpa, email_service, message_service):</span>
+<span id="cb4-3"><a href="#cb4-3"></a>        <span class="va">self</span>.cgpa_calculation_service <span class="op">=</span> cgpa_calculation_service</span>
+<span id="cb4-4"><a href="#cb4-4"></a>        <span class="va">self</span>.minimum_cgpa <span class="op">=</span> minimum_cgpa</span>
+<span id="cb4-5"><a href="#cb4-5"></a>        <span class="va">self</span>.email_service <span class="op">=</span> email_service</span>
+<span id="cb4-6"><a href="#cb4-6"></a>        <span class="va">self</span>.messaging_service <span class="op">=</span> messaging_service</span>
+<span id="cb4-7"><a href="#cb4-7"></a></span>
+<span id="cb4-8"><a href="#cb4-8"></a>    <span class="kw">def</span> make_decision(<span class="va">self</span>, student_course_gpas):</span>
+<span id="cb4-9"><a href="#cb4-9"></a>        semester_cgpa <span class="op">=</span> cgpa_calculation_service.calculate_semester_cgpa(student_course_gpas)</span>
+<span id="cb4-10"><a href="#cb4-10"></a></span>
+<span id="cb4-11"><a href="#cb4-11"></a>        <span class="cf">if</span> semester_cgpa <span class="op">&lt;</span> <span class="va">self</span>.minimum_cgpa:</span>
+<span id="cb4-12"><a href="#cb4-12"></a>            <span class="va">self</span>.email_service.send_mail(<span class="st">"আপনার ছেলে/মেয়ে পঁচা"</span>)</span>
+<span id="cb4-13"><a href="#cb4-13"></a>            <span class="va">self</span>.messaging_service.send_message(<span class="st">"আপনার ছেলে/মেয়ে পঁচা"</span>)</span>
+<span id="cb4-14"><a href="#cb4-14"></a>        <span class="cf">return</span> semester_cgpa</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>উপরোক্ত <strong>DecisionMakingService</strong>-এ আরো রিফ্যাক্টরিং করে উন্নতির সুযোগ আছে। তবে সেগুলো অন্য আরেকদিনের জন্য থাকলো।</p>
+<p>Single Responsibility Principle বুঝতে পারা সব থেকে সহজ অন্য প্রিন্সিপলগুলো থেকে। কিন্তু এই প্রিন্সিপলটাই সবচেয়ে বেশি লঙ্ঘন করে থাকি আমরা।</p>
+<blockquote class="blockquote">
+<p>দ্রষ্টব্যঃ এই লিখায় পাইথন কোডকে অনেকটা সুডোকোডের মতো করে ব্যবহার করা হয়েছে। আর লিখার মূল ফোকাস যেন একটি প্রিন্সিপলেই থাকে সেজন্য বেশকিছু জায়গায় ছাড় দিতে হয়েছে। লিখার কোন ভুল থাকলে জানাবেন এবং মাফ করবেন।</p>
+</blockquote>
+<section id="references" class="level4">
+<h4 class="anchored" data-anchor-id="references">References</h4>
+<ul>
+<li><a href="https://itnext.io/solid-principles-explanation-and-examples-715b975dcad4">SOLID Principles: Explanation and examples</a></li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>
