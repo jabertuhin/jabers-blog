@@ -16,7 +16,7 @@ format:
     css: styles.css
     smooth-scroll: true    
     title-block-banner: true
-    title-block-banner-color: "#CDBAB6"
+    title-block-banner-color: "#4a6c6f"
     from: markdown+emoji
 
 
