@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.280">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2019-09-06">
+<meta name="description" content="Understanding underfitting and overfitting in ML">
+
+<title>Jaber’s Blog - ওভারফিটিং, আন্ডারফিটিং [মেশিন লার্নিং টুকিটাকি]</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+<style>
+    .quarto-title-block .quarto-title-banner {
+      color: #4a6c6f;
+background: #F1F1F1;
+    }
+    </style>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Jaber’s Blog</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html">
+ <span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/jabertuhin"><i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/jabertuhin"><i class="bi bi-twitter" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">ওভারফিটিং, আন্ডারফিটিং [মেশিন লার্নিং টুকিটাকি]</h1>
+                  <div>
+        <div class="description">
+          Understanding underfitting and overfitting in ML
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">Machine Learning</div>
+                <div class="quarto-category">Bangla</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">September 6, 2019</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<p>অগা-মগা-বগা তিন ঘনিষ্ট বন্ধু। ওয়াহিদ স্যার ওদের ক্লাসের গণিতের শিক্ষক। এর আগের বছরও ওয়াহিদ স্যারকে ওরা গণিত ক্লাসে পেয়েছিল। স্যারের ক্লাসের ধরনের সাথে ওরা বেশ পরিচিতই। স্যার ক্লাসে যেগুলো করায় ঐগুলোই আবার বাড়ির কাজ হিসেবে দেয়। আর প্রতি চ্যাপ্টারে যেই অনুশীলনি থাকে সেগুলো থেকে ক্লাস টেস্টের প্রশ্ন করে। গাইড বই এর সাহায্য নিয়ে অনুশীলনিগুলো খুব সহজেই করা সম্ভব।</p>
+<p>ওরা তিন বন্ধুই এইসব জানে, কিন্তু বগার পড়াশোনায় কোন মন নেই। আর গণিত সে একেবারেই পছন্দ করে না। তাই সে ক্লাসে স্যার যখন পড়ায় তখন খাতায় তা তুলে নেয় না, বাড়ির কাজও করে নিয়ে আসে না। তাই ক্লাস-টেস্টেও খারাপ করে। আর মগা খুব মনোযোগী ছাত্র, সে স্যারের বলা প্রতিটা কথা পর্যন্ত খাতায় তুলে, সব কাজ ঠিক ঠাক করে। তাই মগা ক্লাস-টেস্টেও ফুল মার্ক পায়।</p>
+<p>বাকি থাকে অগা, যে কি-না সব বুঝে বুঝে করতে বধ্য-পরিকর। না বুঝে একটা অংকও সে করতে রাজী না। স্যারের কথা মনোযোগ দিয়ে শুনে, কোন লাইনের পরে কোন লাইন কেন লিখা হচ্ছে তা চিন্তা করে। বাড়ির কাজ পুরো শেষ করতে না পারলেও যতোটুকু করে নিজে বুঝে বুঝে করে। ক্লাস-টেস্টে মগার মতো ফুল-মার্ক না পেলেও খারাপ করে না।</p>
+<p>এভাবেই তারা ছয় মাস পাড় করে দিলো, এবার সামনে প্রথম সাময়িক পরীক্ষা। স্কুলের নতুন নিয়ম অনুযায়ী পরীক্ষার প্রশ্ন সব গণিত শিক্ষকের কাছ থেকে নিয়ে সম্মিলিতভাবে করা হবে। পরীক্ষা ভালো মতো হলো, পরীক্ষা শেষের কয়েকদিন পরই পরীক্ষার খাতা দেয়া হলো। কি মনে হয় কে কেমন করলো এই তিন বন্ধুর মধ্যে?</p>
+<p>বগা যে খারাপ করবে তা সবাই বুঝতেই পারছি। মূল প্রশ্নটা হলো – অগা আর মগা কি করলো? মগা বেশ খারাপ করেছে, তার মতো ক্লাসের সব কিছুতে ফুল মার্ক পাওয়া একজন ছাত্র কি-না গণিতে ৬০ পেলো। আর অগা কি-না পেলো ৮৫। এর কারণ পরীক্ষার প্রশ্নে বেশকিছু অংক অন্য বই থেকে নেয়া হয়েছিল। যদিও টপিক এক থাকলেও প্রশ্ন কমন পড়ে নি তাই মগা আর সেই প্রশ্নের উত্তরই দিতে পারে নি। আর অগা বুঝে বুঝে পড়েছে বিধায় নতুন প্রশ্ন তার জন্য কোন সমস্যা ছিল না, সে তো বুঝে বুঝেই উত্তর করেছে যতোটুকু পেরেছে।</p>
+<p>এবার ফিরে আসি যা বুঝাতে এই গল্পের আবির্ভাব। বগার অবস্থাটাকে মেশিন লার্নিং-এ underfitting বলে, মগার অবস্থাকে overfitting এবং অগার অবস্থাটাকে মেশিন লার্নিং এর আদর্শ অবস্থা বলা চলে।</p>
+<p>এখন আরেকটু টেকনিকালভাবে বিষয়গুলো বুঝতে চেষ্টা করি – মেশিন লার্নিং এর বিভিন্ন স্টেপের মধ্যে একটি স্টেপ হলো – মডেল সিলেকশন। কোন মডেল নিয়ে আমি এগুতে চাই সেটা নির্ধারণ করা। কি দেখে এই সিলেকশনটা করা হয় তা একটু জেনে নিই।</p>
+<p>আমাদের কাছে নির্দিষ্ট পরিমাণ ডাটা থাকে যা দিয়ে আমাদের কাজ করতে হয়। যেটা ডাটাসেট নামেই বেশি পরিচিত। এই নির্দিষ্ট সংখ্যক ডাটাসেটের ডাটা পয়েন্ট নিয়েই আমাকে যা করার তা করতে হবে। খুব আদর্শ ধরা হয় – ৬০% ডাটা দিয়ে মডেল ট্রেইন করা, ২০% দিয়ে ক্রস-ভ্যালিডেশন করা আর বাকি ২০% দিয়ে মডেল টেস্ট করা। আমরা মূলত এখন ট্রেইন এর ৬০% আর cross-validation এর ২০% নিয়ে কথা বলবো।</p>
+<p>বোঝার সুবিধার্থে ধরি, আমাদের ডাটাসেটে মোট ১০০টা ডাটা পয়েন্ট আছে। যার ৬০ টা দিয়ে আমি ট্রেইন করাবো, আর ২০ টা দিয়ে ক্রস-ভ্যালিডেশন করবো। m = training set size = 60 আর দুইটা মডেল ধরি, model1 এবং model2.</p>
+<p>আমরা প্রথমে মডেলকে ১ টি ডাটা পয়েন্ট দিয়ে ট্রেইন করবো, এরপর ক্রস ভ্যালিডেশনে তার পার্ফরমেন্স দেখবো। এরপর ২-টি ডাটা পয়েন্ট দিয়ে, ৩-টি দিয়ে, এভাবে ৬০-টি ডাটা পয়েন্ট দিয়ে আমরা মডেলকে ট্রেইন করবো। আমরা এখানে মূলত আমাদের ডাটাসেটে মডেল কি ধরনের আচরন করে তা দেখতে চাচ্ছি, যার জন্য এভাবে ভেঙ্গে ভেঙ্গে কাজ করছি। ট্রেইনিং এর পরে উক্ত মডেল কতটা ভালোভাবে কাজ করছে তা দেখার জন্য ক্রস ভ্যালিডেশন ব্যবহার করা হয়। সেই আলাদা করে রাখা ২০ টা ডাটা পয়েন্ট। এর মধ্যে কতটা সঠিক উত্তর দিতে পারছে আর কতটা ভুল সেটার শতকরা প্রকাশ হলো cv_error।</p>
+<p>এখানে খেয়াল করার বিষয় আমরা ট্রেইন করার জন্য ধীর ধীরে ডাটা পয়েন্ট বাড়াচ্ছি কিন্তু ক্রস ভ্যালিডেশনের সাইজ সবসময় ফিক্সড থাকবে যা কি-না ২০।</p>
+<p>এখন মেশিন লার্নিং এর ক্ষেত্রে আমরা কি করি কিংবা কি চাই? আমরা মেশিনকে কিছু একটা শিখিয়ে পরবর্তীতে দেখতে চাই সে কতটুকু শিখলো? কতটুকু ঠিকভাবে সে প্রেডিক্ট করতে পারছে। আমরা শতকরা হিসেবে তা প্রকাশ করে থাকি। ৮৫% একুরেসি মানে ১০০ বারের মধ্যে সে ৮৫ বার সঠিক উত্তর দিচ্ছে আর বাকি ১৫ বার ভুল উত্তর দিচ্ছে। আমরা এখন তার এই ভুল করার ব্যাপারটা গ্রাফের মাধ্যমে দেখি সাথে দুইটা নতুন টার্মস এর সাথেও পরিচিত হবো(bias and variance)। Model1 এর ক্ষেত্রে নিম্নোক্ত গ্রাফটি পাই –</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="underfit.jpg" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Underfitting</figcaption><p></p>
+</figure>
+</div>
+<p>এই ধরনের গ্রাফকে লার্নিং কার্ভ বলা হয়। ট্রেইনিং ডাটা এর ক্ষেত্রে মডেল যে ইরোর দেয় সেটা training_error এবং cross validation এর সময় যে ইরোর দেয় সেটা cv_error. X – axis রিপ্রেজেন্ট করছে যে পরিমাণ ডাটা দিয়ে আমি আমার মডেলকে ট্রেইন করছি তা(১ – ৬০ পর্যন্ত যে ধীরে ধীরে যাচ্ছি) এবং Y-axis রিপ্রেজেন্ট করছে ইরোরের পরিমাণকে(কতটুকু ভুল করছে)।</p>
+<p>Model1 এর ক্ষেত্রে যতো বেশি ডাটা দিয়ে ট্রেইন করছি ততো বেশি ইরোর পাচ্ছি এবং cv_error আগের থেকে কমলেও ট্রেইনিং ইরোরের খুব কাছে। তার মানে দুই-ক্ষেত্রেই অনেক বেশি ইরোর দিচ্ছে। গল্পের বগার মতো ক্লাসেও খারাপ করছে আবার পরীক্ষাতেও খারাপ করছে। training_error এর উঠতি মানকে High Bias বলা হয়। Model2 এর ক্ষেত্রে নিম্নোক্ত গ্রাফটি পাই –</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="overfit.jpg" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Overfitting</figcaption><p></p>
+</figure>
+</div>
+<p>এখানে দেখতে পাচ্ছি training_error এর তুলনায় cv_error যথেষ্ট বেশি। যা বুঝাচ্ছে মগার মতো ক্লাসে খুবই ভালো রেজাল্ট করছে কিন্তু নতুন কোন প্রশ্ন একটু ঘুরিয়ে দিলেই আর পারছে না। এইখানে আরেকটা বিষয় লক্ষ্য করার তা হলো দুইটা ইরোরের মধ্যবর্তী ফাঁকা জায়গাটা, যা বেশ অসামঞ্জস্যপূর্ণ। cv_error এর মান training_error এর তুলনায় এতো বেশি হওয়াকে High Variance বলা বলা হয়।</p>
+<p>Bias-Variance Trade-off বলে একটা কথা আছে, যার মাধ্যমে আমরা মডেল সিলেক্ট করে থাকি। Low bias যেখানে থাকবে সেখানে high variance থাকবে এবং যেখানে High bias থাকবে সেখানে Low Variance থাকবে। সবসময় চেষ্টা করা হয় যথাসম্ভব low bias রেখে variance ও low রাখার। কিন্তু দুইটাকেই একত্রে কমিয়ে রাখা সম্ভব না। এসবক্ষেত্রে একটু ছাড় দিয়ে এগুতে হয়। অনেকটা অগা-এর মতো, সব পড়ে সে শেষ করতে পারতো না। কিন্তু যা পড়তো বুঝে বুঝে পড়তো, পরীক্ষায় কিন্তু সে ১০০ পায় নি কিন্তু যথেষ্ট ভালো পেয়েছিল(৮৫)।</p>
+<p>৬ থেকে ৭ টা মডেলের মধ্য থেকে যদি আমাকে একটা বাছাই করতে হয়, তখন আমি সেটাকেই বাছাই করবো যার লার্নিং কার্ভ দেখে বুঝতে পারবো সেখানে overfitting কিংবা underfitting এর সম্ভাবনা যথাসম্ভব কম। ভালো মডেলটাই তো টেস্ট সেটে ভালো উত্তর দিতে পারবে, তখনই কেবল তাকে দিয়ে কাজ করানো সম্ভব বাস্তব জগতে।</p>
+<p>[ লিখায় কোন ভুল-ত্রুটি থাকলে মন্তব্যে তা ধরিয়ে দিবেন আশা করি। ধন্যবাদ ]</p>
+
+
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>
