@@ -1,47 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://github.com/jabertuhin/jabers-blog-quarto/about.html</loc>
-    <lastmod>2022-12-28T17:01:20.818Z</lastmod>
+    <loc>https://github.com/jabertuhin/jabers-blog/about.html</loc>
+    <lastmod>2023-01-09T18:27:24.958Z</lastmod>
   </url>
   <url>
-    <loc>https://github.com/jabertuhin/jabers-blog-quarto/posts/pre-commit-hook-in-python/index.html</loc>
-    <lastmod>2022-12-28T17:01:22.838Z</lastmod>
+    <loc>https://github.com/jabertuhin/jabers-blog/posts/pre-commit-hook-in-python/index.html</loc>
+    <lastmod>2023-01-09T18:27:26.965Z</lastmod>
   </url>
   <url>
-    <loc>https://github.com/jabertuhin/jabers-blog-quarto/posts/multi-stage-docker-build/index.html</loc>
-    <lastmod>2022-12-28T17:01:23.362Z</lastmod>
+    <loc>https://github.com/jabertuhin/jabers-blog/posts/multi-stage-docker-build/index.html</loc>
+    <lastmod>2023-01-09T18:27:27.505Z</lastmod>
   </url>
   <url>
-    <loc>https://github.com/jabertuhin/jabers-blog-quarto/posts/my-cp-journey/index.html</loc>
-    <lastmod>2022-12-28T17:01:25.026Z</lastmod>
+    <loc>https://github.com/jabertuhin/jabers-blog/posts/my-cp-journey/index.html</loc>
+    <lastmod>2023-01-09T18:27:29.178Z</lastmod>
   </url>
   <url>
-    <loc>https://github.com/jabertuhin/jabers-blog-quarto/posts/overfitting-underfitting/index.html</loc>
-    <lastmod>2022-12-28T17:01:25.402Z</lastmod>
+    <loc>https://github.com/jabertuhin/jabers-blog/posts/overfitting-underfitting/index.html</loc>
+    <lastmod>2023-01-09T18:27:29.522Z</lastmod>
   </url>
   <url>
-    <loc>https://github.com/jabertuhin/jabers-blog-quarto/posts/strategy-pattern/index.html</loc>
-    <lastmod>2022-12-28T17:01:26.122Z</lastmod>
+    <loc>https://github.com/jabertuhin/jabers-blog/posts/strategy-pattern/index.html</loc>
+    <lastmod>2023-01-09T18:27:30.250Z</lastmod>
   </url>
   <url>
-    <loc>https://github.com/jabertuhin/jabers-blog-quarto/posts/classification-evaluation-matrices-part-1/index.html</loc>
-    <lastmod>2022-12-28T17:01:26.830Z</lastmod>
+    <loc>https://github.com/jabertuhin/jabers-blog/posts/classification-evaluation-matrices-part-1/index.html</loc>
+    <lastmod>2023-01-09T18:27:30.974Z</lastmod>
   </url>
   <url>
-    <loc>https://github.com/jabertuhin/jabers-blog-quarto/posts/mle-interview-preparation/index.html</loc>
-    <lastmod>2022-12-28T17:01:27.218Z</lastmod>
+    <loc>https://github.com/jabertuhin/jabers-blog/posts/mle-interview-preparation/index.html</loc>
+    <lastmod>2023-01-09T18:27:31.358Z</lastmod>
   </url>
   <url>
-    <loc>https://github.com/jabertuhin/jabers-blog-quarto/posts/vscode-dev-container/index.html</loc>
-    <lastmod>2022-12-28T17:01:27.926Z</lastmod>
+    <loc>https://github.com/jabertuhin/jabers-blog/posts/vscode-dev-container/index.html</loc>
+    <lastmod>2023-01-09T18:27:32.042Z</lastmod>
   </url>
   <url>
-    <loc>https://github.com/jabertuhin/jabers-blog-quarto/posts/single-responsibility-principle/index.html</loc>
-    <lastmod>2022-12-28T17:01:28.318Z</lastmod>
+    <loc>https://github.com/jabertuhin/jabers-blog/posts/single-responsibility-principle/index.html</loc>
+    <lastmod>2023-01-09T18:27:32.406Z</lastmod>
   </url>
   <url>
-    <loc>https://github.com/jabertuhin/jabers-blog-quarto/index.html</loc>
-    <lastmod>2022-12-28T17:01:29.082Z</lastmod>
+    <loc>https://github.com/jabertuhin/jabers-blog/index.html</loc>
+    <lastmod>2023-01-09T18:27:33.182Z</lastmod>
   </url>
 </urlset>
