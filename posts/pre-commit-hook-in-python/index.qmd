@@ -83,10 +83,10 @@ repos:
 
 ### উদাহরণ
 আমি আমার প্রজেক্টের *requirements.txt* থেকে একটা প্যাকেজ রিমুভ করে দিয়ে, একটা কমিট করি। যেহেতু এটা পাইথন ফাইল না, পাইথন স্পেসিফিক হুকগুলো এখানে রান করে নি। 
-![]({{ site.baseurl }}/images/git-commit.png "pre-commit hooks executing during commit.")
+!["pre-commit hooks executing during commit."](git-commit.png)
 
 পরবর্তীতে আমি এই চেঞ্জ যখন push করি তখন কমিট স্পেসিফিক চেকিং গুলো হয় নি, আর push এর সময় টেস্ট রান করতে বলেছিলাম সেই টেস্ট রান হয়েছে।
-![]({{ site.baseurl }}/images/git-push.png "pre-commit hooks executing during push.")
+!["pre-commit hooks executing during push."](git-push.png)
 
 
 ## CI পাইপলাইনে প্রি-কমিট হুক চেকিং
